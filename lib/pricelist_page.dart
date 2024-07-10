@@ -10,9 +10,7 @@ class PriceListPages extends StatelessWidget {
           'Setting',
           style: TextStyle(color: Colors.white),
         ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(),
-        ),
+        backgroundColor: Colors.amber,
       ),
       body: Center(
         child: Text('we are implement this page'),

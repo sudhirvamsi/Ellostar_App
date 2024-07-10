@@ -13,8 +13,9 @@ class SettingPage extends StatelessWidget {
         flexibleSpace: Container(
           decoration: BoxDecoration(),
         ),
+        backgroundColor: Colors.amber,
       ),
-      body: Center(
+      body: const Center(
         child: Text('we are implement this page'),
       ),
     );

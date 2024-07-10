@@ -14,12 +14,23 @@ class _forgot_passwordState extends State<forgot_password> {
       appBar: AppBar(
         title: Text('Forgot Password'),
       ),
-      body: Column(
-        children: [
-          TextFormField(
-            controller: forgotPassword,
-          )
-        ],
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 260,
+            ),
+            TextFormField(
+              controller: forgotPassword,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(9.0),
+                  ),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 12)),
+            )
+          ],
+        ),
       ),
     );
   }
