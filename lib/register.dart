@@ -21,22 +21,26 @@ class _registerState extends State<register> {
   final _passwordController = TextEditingController();
   final _confirmpassController = TextEditingController();
   final _userController = TextEditingController();
-  final _countryController = TextEditingController();
 
-  final _cityController = TextEditingController();
   final _pincodeController = TextEditingController();
   final _addressController = TextEditingController();
   final _referredController = TextEditingController();
+  List<Map<String, dynamic>> eventList = [];
+  Map<String, dynamic>? selectedEvent;
+  List<Map<String, dynamic>> stateList = [];
+  Map<String, dynamic>? selectedState;
+  List<Map<String, dynamic>> cityslist = [];
+  Map<String, dynamic>? selectedCity;
+
+  @override
+  void initState() {
+    super.initState();
+    Countysget();
+  }
 
   bool isChecked = false;
   void printMessage() {
     print('user accepted the agrement');
-  }
-
-  @override
-  void initState() {
-    Countysget();
-    super.initState();
   }
 
   @override
@@ -365,32 +369,43 @@ class _registerState extends State<register> {
             const SizedBox(
               height: 5,
             ),
-
-            TextFormField(
-              controller: _countryController,
+            DropdownButtonFormField<Map<String, dynamic>>(
+              value: selectedEvent,
               decoration: InputDecoration(
-                prefixIcon: const Icon(
-                  Icons.map,
-                  color: Colors.orange,
-                ),
-                hintText: "enter your country",
-                hintStyle: const TextStyle(color: Colors.black26),
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.white,
                   ),
                 ),
+                hintText: "Please select County",
+                hintStyle: const TextStyle(color: Colors.black26),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange.shade400),
                 ),
                 fillColor: Colors.orange.shade50,
                 filled: true,
               ),
+              onChanged: (Map<String, dynamic>? newValue) {
+                setState(() {
+                  selectedEvent = newValue;
+                  selectedState = null;
+                  stateList = [];
+                  print('Selected country: $selectedEvent');
+                });
+                StatesApi();
+              },
+              items: eventList.map<DropdownMenuItem<Map<String, dynamic>>>(
+                  (Map<String, dynamic> value) {
+                return DropdownMenuItem<Map<String, dynamic>>(
+                  value: value,
+                  child: Text(
+                    value['name'],
+                    style: const TextStyle(fontWeight: FontWeight.normal),
+                  ),
+                );
+              }).toList(),
             ),
-
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 20),
 
             // STATE
 
@@ -403,26 +418,41 @@ class _registerState extends State<register> {
               height: 5,
             ),
 
-            TextFormField(
-              controller: _countryController,
+            DropdownButtonFormField<Map<String, dynamic>>(
+              value: selectedState,
               decoration: InputDecoration(
-                prefixIcon: const Icon(
-                  Icons.location_city,
-                  color: Colors.orange,
-                ),
-                hintText: "enter your state",
-                hintStyle: const TextStyle(color: Colors.black26),
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.white,
                   ),
                 ),
+                hintText: "Please select State",
+                hintStyle: const TextStyle(color: Colors.black26),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange.shade400),
                 ),
                 fillColor: Colors.orange.shade50,
                 filled: true,
               ),
+              onChanged: stateList.isNotEmpty
+                  ? (Map<String, dynamic>? newValue) {
+                      setState(() {
+                        selectedState = newValue;
+                        print('Selected state: $selectedState');
+                      });
+                      cityesApis();
+                    }
+                  : null,
+              items: stateList.map<DropdownMenuItem<Map<String, dynamic>>>(
+                  (Map<String, dynamic> value) {
+                return DropdownMenuItem<Map<String, dynamic>>(
+                  value: value,
+                  child: Text(
+                    value['name'],
+                    style: const TextStyle(fontWeight: FontWeight.normal),
+                  ),
+                );
+              }).toList(),
             ),
 
             const SizedBox(
@@ -440,26 +470,40 @@ class _registerState extends State<register> {
               height: 5,
             ),
 
-            TextFormField(
-              controller: _cityController,
+            DropdownButtonFormField<Map<String, dynamic>>(
+              value: selectedCity,
               decoration: InputDecoration(
-                prefixIcon: const Icon(
-                  Icons.location_city_sharp,
-                  color: Colors.orange,
-                ),
-                hintText: "enter your city",
-                hintStyle: const TextStyle(color: Colors.black26),
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.white,
                   ),
                 ),
+                hintText: "Please select City",
+                hintStyle: const TextStyle(color: Colors.black26),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange.shade400),
                 ),
                 fillColor: Colors.orange.shade50,
                 filled: true,
               ),
+              onChanged: cityslist.isNotEmpty
+                  ? (Map<String, dynamic>? newValue) {
+                      setState(() {
+                        selectedCity = newValue;
+                        print('Selected state: $selectedCity');
+                      });
+                    }
+                  : null,
+              items: cityslist.map<DropdownMenuItem<Map<String, dynamic>>>(
+                  (Map<String, dynamic> value) {
+                return DropdownMenuItem<Map<String, dynamic>>(
+                  value: value,
+                  child: Text(
+                    value['name'],
+                    style: const TextStyle(fontWeight: FontWeight.normal),
+                  ),
+                );
+              }).toList(),
             ),
 
             const SizedBox(
@@ -636,10 +680,10 @@ class _registerState extends State<register> {
   }
 
   Future<void> Countysget() async {
-    String Url = 'https://ellostars.com/api/countries';
+    String url = 'https://ellostars.com/api/countries';
     try {
       final response = await http.get(
-        Uri.parse(Url),
+        Uri.parse(url),
         headers: {
           'Authorization':
               'Basic ' + base64Encode(utf8.encode('ellostars:ellostars')),
@@ -647,12 +691,117 @@ class _registerState extends State<register> {
       );
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
-        print('countycode data:$result');
+        setState(() {
+          List<dynamic> data = result['details'];
+          for (var item in data) {
+            eventList.add({
+              'id': item['id'],
+              'name': item['name'],
+            });
+          }
+        });
       } else {
-        print('not able to get');
+        print('Not able to get countries');
       }
     } catch (e) {
-      print("error$e");
+      print("Error: $e");
+    }
+  }
+
+  Future<void> StatesApi() async {
+    if (selectedEvent == null) {
+      print('No country selected');
+      return;
+    }
+
+    String url = 'https://ellostars.com/api/states';
+    String countyid = selectedEvent!['id'].toString();
+    print('countyid: $countyid');
+
+    Map<String, String> data = {
+      'country_id': countyid,
+    };
+
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('ellostars:ellostars'));
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Authorization': basicAuth,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: data,
+      );
+
+      if (response.statusCode == 200) {
+        final jsondata = jsonDecode(response.body);
+        print('States data: $jsondata');
+        setState(() {
+          List<dynamic> data = jsondata['details'];
+          for (var item in data) {
+            stateList.add({
+              'id': item['id'],
+              'name': item['name'],
+            });
+          }
+        });
+      } else {
+        print('Failed to get states');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Future<void> cityesApis() async {
+    if (selectedState == null) {
+      print('No country selected');
+      return;
+    }
+
+    String url = 'https://ellostars.com/api/cities';
+    String Stateid = selectedState!['id'].toString();
+    print('Stateid: $Stateid');
+
+    Map<String, String> data = {
+      'state_id': Stateid,
+    };
+
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('ellostars:ellostars'));
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Authorization': basicAuth,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: data,
+      );
+
+      if (response.statusCode == 200) {
+        final jsondata = jsonDecode(response.body);
+        print('States data: $jsondata');
+
+        setState(() {
+          List<dynamic> data = jsondata['details'];
+          for (var item in data) {
+            cityslist.add({
+              'id': item['id'],
+              'name': item['name'],
+            });
+          }
+        });
+      } else {
+        print('Failed to get states');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
     }
   }
 }
