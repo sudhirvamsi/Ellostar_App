@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PriceListPages extends StatelessWidget {
-  const PriceListPages({super.key});
+class Meterial_screen extends StatelessWidget {
+  const Meterial_screen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

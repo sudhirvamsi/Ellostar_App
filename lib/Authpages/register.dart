@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ellostars/login_page.dart';
+import 'package:ellostars/Authpages/login_page.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class register extends StatefulWidget {
 class _registerState extends State<register> {
   final GlobalKey<FormState> _registerKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _fatherController = TextEditingController();
+
   final _phonenumberController = TextEditingController();
   final _alternateController = TextEditingController();
   final _emailController = TextEditingController();
@@ -124,10 +124,8 @@ class _registerState extends State<register> {
                     height: 15,
                   ),
 
-                  // FATHER / GUARDIAN NAME
-
                   const Text(
-                    'Father / Guardian Name',
+                    'User Name',
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
 
@@ -136,14 +134,14 @@ class _registerState extends State<register> {
                   ),
 
                   TextFormField(
-                    controller: _fatherController,
+                    controller: _userController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
-                        Icons.family_restroom,
+                        Icons.person,
                         color: Colors.orange,
                       ),
-                      hintText: "enter your father / guardian name",
+                      hintText: "enter your user name",
                       hintStyle: const TextStyle(color: Colors.black26),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(9.0),
@@ -165,6 +163,13 @@ class _registerState extends State<register> {
                       fillColor: Colors.orange.shade50,
                       filled: true,
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter user name';
+                      }
+
+                      return null;
+                    },
                   ),
 
                   const SizedBox(
@@ -326,59 +331,7 @@ class _registerState extends State<register> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 15,
-                  ),
-
                   // USER NAME
-
-                  const Text(
-                    'User Name',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-
-                  const SizedBox(
-                    height: 5,
-                  ),
-
-                  TextFormField(
-                    controller: _userController,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: Colors.orange,
-                      ),
-                      hintText: "enter your user name",
-                      hintStyle: const TextStyle(color: Colors.black26),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.0),
-                        borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 246, 245, 245),
-                          width: 1.0,
-                        ),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16),
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.orange.shade400),
-                      ),
-                      fillColor: Colors.orange.shade50,
-                      filled: true,
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter user name';
-                      }
-
-                      return null;
-                    },
-                  ),
 
                   const SizedBox(
                     height: 15,
@@ -426,7 +379,7 @@ class _registerState extends State<register> {
                       filled: true,
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty || value.length <= 6) {
+                      if (value == null || value.isEmpty || value.length <= 5) {
                         return 'Please enter min 6 lenght';
                       }
                       // Add more password validation if needed
@@ -1045,7 +998,7 @@ class _registerState extends State<register> {
     // Create a map to hold the username and password
     Map<String, String> data = {
       'name': _nameController.text,
-      'father_guardian_name': _fatherController.text,
+      'username': _userController.text,
       'pcode': "91",
       'phone': _phonenumberController.text,
       'alt_phone': _alternateController.text,
@@ -1058,9 +1011,9 @@ class _registerState extends State<register> {
       'pincode': _pincodeController.text,
       'address': _addressController.text,
       'is_agree': "1",
-      'referred_by': _referredController.text,
+      //'referred_by': _referredController.text,
     };
-
+    print('rigested:$data');
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('ellostars:ellostars'));
 

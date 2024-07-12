@@ -1,6 +1,6 @@
-import 'package:ellostars/home_page.dart';
-import 'package:ellostars/main_screen.dart';
-import 'package:ellostars/onboarding_screen.dart';
+import 'package:ellostars/Bottombar.dart';
+import 'package:ellostars/Homepage.dart';
+import 'package:ellostars/Authpages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';

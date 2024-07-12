@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:ellostars/forgotpassword_screen.dart';
-import 'package:ellostars/home_page.dart';
-import 'package:ellostars/register.dart';
+import 'package:ellostars/Authpages/forgotpassword_screen.dart';
+import 'package:ellostars/Bottombar.dart';
+import 'package:ellostars/Authpages/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -299,8 +299,11 @@ class _login_pageState extends State<login_page> {
         String username = Logindata['e_name'].toString();
         String phonenum = Logindata['e_phone'].toString();
         String gmail = Logindata['e_email'].toString();
+        String userid = Logindata['e_id'].toString();
+
         saveData("Username", username);
-        print("username:$username");
+        saveData("userid", userid);
+
         saveData("Phonenumber", phonenum);
         saveData("Gmail", gmail);
         String massage = jsondata['msg'];

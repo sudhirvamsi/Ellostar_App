@@ -1,5 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:ellostars/main_screen.dart';
+import 'package:ellostars/Homepage.dart';
 import 'package:ellostars/pricelist_page.dart';
 import 'package:ellostars/setting_page.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class _home_pageState extends State<Tabbar_screen> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const main_screen(),
+    const homescreen(),
     const PriceListPages(),
     const SettingPage(),
   ];
