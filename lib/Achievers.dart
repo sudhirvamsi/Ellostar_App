@@ -7,7 +7,7 @@ class Archivers_screen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'priceList',
+          'Achievers',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.amber,

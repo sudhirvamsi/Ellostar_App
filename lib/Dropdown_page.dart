@@ -1,4 +1,7 @@
+import 'package:ellostars/Achievers.dart';
 import 'package:ellostars/Authpages/login_page.dart';
+import 'package:ellostars/contests.dart';
+import 'package:ellostars/materials.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -85,7 +88,12 @@ class _DropdownState extends State<Dropdown> {
                 color: Colors.orange.shade800,
               ),
               title: const Text('Contests'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Contests_screen()));
+              },
             ),
             ListTile(
               leading: Icon(
@@ -93,7 +101,12 @@ class _DropdownState extends State<Dropdown> {
                 color: Colors.orange.shade800,
               ),
               title: const Text('Achievers'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Archivers_screen()));
+              },
             ),
             ListTile(
               leading: Icon(
@@ -101,7 +114,12 @@ class _DropdownState extends State<Dropdown> {
                 color: Colors.orange.shade800,
               ),
               title: const Text('Materials'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Meterial_screen()));
+              },
             ),
             ListTile(
               leading: Icon(

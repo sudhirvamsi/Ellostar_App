@@ -30,35 +30,9 @@ class month_3 extends StatelessWidget {
                         ),
                         const Text(
                             'The quality of output we provide is MEDIUM'),
-
                         const SizedBox(
                           height: 15,
                         ),
-
-                        // Row(
-                        //   children: [
-                        //     Text('₹\ 5000', style: TextStyle(
-                        //       fontSize: 16,
-                        //       decoration: TextDecoration.lineThrough,
-                        //       decorationThickness: 1.5
-                        //     ),),
-                        //     Container(
-                        //       padding: EdgeInsets.all(8),
-                        //       margin: EdgeInsets.symmetric(horizontal: 25),
-                        //       decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(20),
-                        //         color: Colors.blue.shade50
-                        //       ),
-                        //       child: (
-                        //       Text('SAVE 16%', style: TextStyle(
-                        //         fontWeight: FontWeight.w900,
-                        //         fontSize: 14
-                        //       ),)
-                        //       ),
-                        //     )
-                        //
-                        //   ],
-                        // ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -70,7 +44,6 @@ class month_3 extends StatelessWidget {
                             )
                           ],
                         ),
-
                         const Row(
                           children: [
                             Text(
@@ -94,11 +67,9 @@ class month_3 extends StatelessWidget {
                             )
                           ],
                         ),
-
                         const SizedBox(
                           height: 10,
                         ),
-
                         Container(
                           padding: const EdgeInsets.all(18),
                           margin: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -118,7 +89,6 @@ class month_3 extends StatelessWidget {
                         const SizedBox(
                           height: 15,
                         ),
-
                         Row(
                           children: [
                             Expanded(
@@ -143,7 +113,6 @@ class month_3 extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-
                         Row(
                           children: [
                             Icon(
@@ -167,7 +136,6 @@ class month_3 extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-
                         Row(
                           children: [
                             Icon(
@@ -188,11 +156,9 @@ class month_3 extends StatelessWidget {
                             ),
                           ],
                         ),
-
                         const SizedBox(
                           height: 5,
                         ),
-
                         Row(
                           children: [
                             Icon(
@@ -217,11 +183,9 @@ class month_3 extends StatelessWidget {
                                 'Google My Business')
                           ],
                         ),
-
                         const SizedBox(
                           height: 5,
                         ),
-
                         Row(
                           children: [
                             Icon(
@@ -237,7 +201,6 @@ class month_3 extends StatelessWidget {
                             ),
                           ],
                         ),
-
                         const Column(
                           children: [
                             Align(
@@ -247,11 +210,9 @@ class month_3 extends StatelessWidget {
                                 'Campaign Management')
                           ],
                         ),
-
                         const SizedBox(
                           height: 5,
                         ),
-
                         Row(
                           children: [
                             Icon(
@@ -268,7 +229,6 @@ class month_3 extends StatelessWidget {
                         const SizedBox(
                           height: 15,
                         ),
-
                         Container(
                           padding: const EdgeInsets.all(10),
                           margin: const EdgeInsets.symmetric(horizontal: 10.0),

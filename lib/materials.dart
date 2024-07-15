@@ -7,7 +7,7 @@ class Meterial_screen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'priceList',
+          'Materials',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.amber,

@@ -27,6 +27,7 @@ class _smo_packagesState extends State<smo_packages> {
           bottom: const TabBar(
             tabs: [
               Tab(
+                height: 100,
                 child: Text(
                   'Silver Packages',
                   style: TextStyle(
@@ -34,9 +35,9 @@ class _smo_packagesState extends State<smo_packages> {
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
-                height: 100,
               ),
               Tab(
+                height: 100,
                 child: Text(
                   'Gold Packages',
                   style: TextStyle(
@@ -44,7 +45,6 @@ class _smo_packagesState extends State<smo_packages> {
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
-                height: 100,
               ),
             ],
           ),
@@ -53,9 +53,6 @@ class _smo_packagesState extends State<smo_packages> {
             color: Colors.white,
             onPressed: () {
               Navigator.pop(context);
-              // Navigator.push(context, MaterialPageRoute(builder: (context) {
-              //   return smo_package();
-              // }));
             },
           ),
         ),
@@ -63,7 +60,9 @@ class _smo_packagesState extends State<smo_packages> {
           child: TabBarView(
             children: [
               Container(
-                child: const silver_packages(),
+                height: 450,
+                width: 300,
+                child: SilverPackages(),
               ),
               Container(
                 color: Colors.lightBlueAccent,

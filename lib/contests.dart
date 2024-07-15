@@ -7,7 +7,7 @@ class Contests_screen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'priceList',
+          'Contests',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.amber,
