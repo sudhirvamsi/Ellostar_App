@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:ellostars/Dropdown_page.dart';
-import 'package:ellostars/subsirvices_List.dart';
+import 'package:ellostars/homepages/Dropdown_page.dart';
+import 'package:ellostars/homepages/cartpage.dart';
+import 'package:ellostars/homepages/subsirvices_List.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _homescreenState extends State<homescreen> {
   String? userid;
   List<dynamic> survicessList = [];
   bool isLoading = false;
+  String? walletbalance;
 
   @override
   void initState() {
@@ -46,18 +48,25 @@ class _homescreenState extends State<homescreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(""),
+        title: const Text(
+          "Homepage",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+        ),
         backgroundColor: Colors.orange.shade50,
         actions: [
           Row(
             children: [
               IconButton(
-                  onPressed: () {}, icon: const Icon(CupertinoIcons.bell)),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: ((context) => Cartitems())));
+                  },
+                  icon: Icon(Icons.shopping_cart)),
             ],
           )
         ],
       ),
-      drawer: Dropdown(),
+      drawer: const Dropdown(),
       backgroundColor: Colors.orange.shade50,
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -88,8 +97,8 @@ class _homescreenState extends State<homescreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  const Text('\₹ 1,00,000.00',
-                      style: TextStyle(
+                  Text('₹ $walletbalance.00            ',
+                      style: const TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
                           color: Colors.white)),
@@ -126,7 +135,7 @@ class _homescreenState extends State<homescreen> {
                                     fontWeight: FontWeight.w400,
                                     color: Colors.white)),
                             Text(userid ?? "",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.white)),
@@ -158,7 +167,7 @@ class _homescreenState extends State<homescreen> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 child: isLoading
                     ? const Center(
                         child: CircularProgressIndicator(),
@@ -283,6 +292,8 @@ class _homescreenState extends State<homescreen> {
         final jsondata = jsonDecode(response.body);
         setState(() {
           survicessList = jsondata['details']['services'];
+          walletbalance = jsondata['details']['wallet_balance'].toString();
+          print('walet');
           isLoading = false;
         });
 

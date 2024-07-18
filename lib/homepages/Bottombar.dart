@@ -1,5 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:ellostars/Homepage.dart';
+import 'package:ellostars/homepages/Homepage.dart';
 import 'package:ellostars/pricelist_page.dart';
 import 'package:ellostars/setting_page.dart';
 import 'package:flutter/material.dart';

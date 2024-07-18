@@ -1,5 +1,5 @@
-import 'package:ellostars/Bottombar.dart';
-import 'package:ellostars/Homepage.dart';
+import 'package:ellostars/homepages/Bottombar.dart';
+import 'package:ellostars/homepages/Homepage.dart';
 import 'package:ellostars/Authpages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 

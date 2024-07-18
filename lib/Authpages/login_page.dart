@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:ellostars/Authpages/forgotpassword_screen.dart';
-import 'package:ellostars/Bottombar.dart';
+import 'package:ellostars/homepages/Bottombar.dart';
 import 'package:ellostars/Authpages/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

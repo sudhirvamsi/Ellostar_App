@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:ellostars/subsirvices_details.dart';
+import 'package:ellostars/homepages/subsirvices_details.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -70,6 +70,18 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          responseData['title'] ?? "",
+          style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         backgroundColor: Colors.blue[200],
       ),
       body: Scaffold(
@@ -122,11 +134,6 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      responseData['title'] ?? "",
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
                     const SizedBox(height: 15),
                     Text(
                       responseData['description'] ?? "",
@@ -214,7 +221,7 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => smo_package(serviceId: id),
+                    builder: (context) => subsurviceDetails(serviceId: id),
                   ),
                 );
               },

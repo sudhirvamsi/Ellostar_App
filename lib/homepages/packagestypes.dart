@@ -1,20 +1,20 @@
-import 'package:ellostars/gold_packages.dart';
-import 'package:ellostars/silver_package.dart';
-import 'package:ellostars/subsirvices_details.dart';
+import 'package:ellostars/homepages/gold_packages.dart';
+import 'package:ellostars/homepages/silver_package.dart';
+
 import 'package:flutter/material.dart';
 
-class smo_packages extends StatefulWidget {
-  const smo_packages({super.key});
+class packagesList extends StatefulWidget {
+  const packagesList({super.key});
 
   @override
-  State<smo_packages> createState() => _smo_packagesState();
+  State<packagesList> createState() => _packagesList();
 }
 
-class _smo_packagesState extends State<smo_packages> {
+class _packagesList extends State<packagesList> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -56,20 +56,18 @@ class _smo_packagesState extends State<smo_packages> {
             },
           ),
         ),
-        body: Expanded(
-          child: TabBarView(
-            children: [
-              Container(
-                height: 450,
-                width: 300,
-                child: SilverPackages(),
-              ),
-              Container(
-                color: Colors.lightBlueAccent,
-                child: (const gold_packages()),
-              ),
-            ],
-          ),
+        body: TabBarView(
+          children: [
+            Container(
+              height: 450,
+              width: 300,
+              child: SilverPackages(),
+            ),
+            Container(
+              color: Colors.lightBlueAccent,
+              child: (const GoldPackages()),
+            ),
+          ],
         ),
       ),
     );

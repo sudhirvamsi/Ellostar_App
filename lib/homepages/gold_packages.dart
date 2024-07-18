@@ -3,21 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class SilverPackages extends StatefulWidget {
-  const SilverPackages({super.key});
+class GoldPackages extends StatefulWidget {
+  const GoldPackages({super.key});
 
   @override
-  State<SilverPackages> createState() => _SilverPackagesState();
+  State<GoldPackages> createState() => _GoldPackagesState();
 }
 
-class _SilverPackagesState extends State<SilverPackages> {
+class _GoldPackagesState extends State<GoldPackages> {
   List<dynamic> silverpackages = [];
   final PageController _controller = PageController();
+  bool isLoading = false;
+  bool addedcart = false;
 
   @override
   void initState() {
     super.initState();
-    silverpacages();
+    goldpacages();
   }
 
   @override
@@ -26,34 +28,35 @@ class _SilverPackagesState extends State<SilverPackages> {
       body: Column(
         children: [
           Expanded(
-            child: silverpackages.isNotEmpty
-                ? PageView.builder(
-                    controller: _controller,
-                    itemCount: silverpackages.length,
-                    itemBuilder: (context, index) {
-                      final service = silverpackages[index];
-                      return packageslist(
-                        service["title"],
-                        service["price"].toString(),
-                        service["commission"]["agent_commission"].toString(),
-                        service["commission"]["agent_commission_amount"]
-                            .toString(),
-                        service["description"],
-                        service['id'],
-                      );
-                    },
-                  )
-                : const Center(child: CircularProgressIndicator()),
-          ),
+              child: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : silverpackages.isEmpty
+                      ? const Center(child: Text('NO SERVICE PACKAGES FOUND'))
+                      : PageView.builder(
+                          controller: _controller,
+                          itemCount: silverpackages.length,
+                          itemBuilder: (context, index) {
+                            final service = silverpackages[index];
+                            return packageslist(
+                              service["title"],
+                              service["price"].toString(),
+                              service["commission"]["agent_commission"]
+                                  .toString(),
+                              service["commission"]["agent_commission_amount"]
+                                  .toString(),
+                              service["description"],
+                              service['id'],
+                            );
+                          },
+                        )),
           Container(
             alignment: const Alignment(0, 0.9),
             child: SmoothPageIndicator(
               controller: _controller,
               count: silverpackages.length,
-              effect: const WormEffect(
-                dotColor: Color.fromARGB(255, 128, 208, 255),
-                activeDotColor: Color.fromARGB(255, 17, 16, 16),
-              ),
+              effect: WormEffect(
+                  dotColor: Colors.orange.shade200,
+                  activeDotColor: Colors.orange),
             ),
           ),
           const SizedBox(
@@ -64,14 +67,17 @@ class _SilverPackagesState extends State<SilverPackages> {
     );
   }
 
-  Future<void> silverpacages() async {
+  Future<void> goldpacages() async {
+    setState(() {
+      isLoading = true;
+    });
     String url = 'https://ellostars.com/api/get-packages';
 
     Map<String, String> data = {
       'service_id': "2",
       "sub_service_id": "4",
       "agent_id": "1",
-      "type": "silver",
+      "type": "gold",
     };
 
     String basicAuth =
@@ -101,6 +107,52 @@ class _SilverPackagesState extends State<SilverPackages> {
     } catch (e) {
       print('Error: $e');
     }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  Future<void> addtocart() async {
+    setState(() {
+      isLoading = true;
+    });
+    String url = 'https://ellostars.com/api/add-cart';
+
+    Map<String, String> data = {
+      'agent_id': "2",
+      "service_id": "4",
+    };
+
+    String basicAuth =
+        'Basic ${base64Encode(utf8.encode('ellostars:ellostars'))}';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Authorization': basicAuth,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: data,
+      );
+
+      if (response.statusCode == 200) {
+        final jsondata = jsonDecode(response.body);
+        setState(() {
+          silverpackages = jsondata['services'];
+          print("packageslist:$silverpackages");
+        });
+      } else {
+        final jsondata = jsonDecode(response.body);
+        print('error data:$jsondata');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 }
 
@@ -127,7 +179,7 @@ Widget packageslist(
         ),
         margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          color: Colors.blue.shade100,
+          color: Colors.orange.shade50,
           borderRadius: BorderRadius.circular(20),
         ),
         child: SingleChildScrollView(
@@ -163,7 +215,7 @@ Widget packageslist(
               ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.orange,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),

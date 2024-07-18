@@ -1,17 +1,17 @@
 import 'dart:convert';
-import 'package:ellostars/packagestypes.dart';
+import 'package:ellostars/homepages/packagestypes.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class smo_package extends StatefulWidget {
+class subsurviceDetails extends StatefulWidget {
   final String serviceId;
-  const smo_package({super.key, required this.serviceId});
+  const subsurviceDetails({super.key, required this.serviceId});
 
   @override
-  State<smo_package> createState() => _smo_packageState();
+  State<subsurviceDetails> createState() => _subsurviceDetails();
 }
 
-class _smo_packageState extends State<smo_package> {
+class _subsurviceDetails extends State<subsurviceDetails> {
   @override
   void initState() {
     super.initState();
@@ -24,9 +24,17 @@ class _smo_packageState extends State<smo_package> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            survicessList['title'] ?? "",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                survicessList['title'] ?? "",
+                maxLines: 2,
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
           backgroundColor: Colors.orange.shade50,
           leading: IconButton(
@@ -82,7 +90,7 @@ class _smo_packageState extends State<smo_package> {
                     onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return const smo_packages();
+                        return const packagesList();
                       }));
                     },
                     child: Container(

@@ -1,5 +1,6 @@
 import 'package:ellostars/Achievers.dart';
 import 'package:ellostars/Authpages/login_page.dart';
+import 'package:ellostars/homepages/addbank_details.dart';
 import 'package:ellostars/contests.dart';
 import 'package:ellostars/materials.dart';
 import 'package:flutter/material.dart';
@@ -131,6 +132,18 @@ class _DropdownState extends State<Dropdown> {
                 // Navigator.push(context, MaterialPageRoute(builder: (context) {
                 //   return payouts();
                 // }));
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.account_balance,
+                color: Colors.orange.shade800,
+              ),
+              title: const Text('add bank detals'),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return addBanck_Details();
+                }));
               },
             ),
             ListTile(

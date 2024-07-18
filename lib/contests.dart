@@ -10,6 +10,14 @@ class Contests_screen extends StatelessWidget {
           'Contests',
           style: TextStyle(color: Colors.white),
         ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         backgroundColor: Colors.amber,
       ),
       body: Center(
