@@ -47,6 +47,11 @@ class _UserProfile extends State<UserProfile> {
               color: Colors.white,
             ),
           ),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_back_ios)),
           actions: [
             IconButton(
                 onPressed: () {
@@ -65,10 +70,22 @@ class _UserProfile extends State<UserProfile> {
                                 altPho: Updatedata['e_alt_phone'],
                               )));
                 },
-                icon: Icon(Icons.edit))
+                icon: Row(
+                  children: [
+                    Text(
+                      "Edit",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    )
+                  ],
+                ))
           ],
           backgroundColor: Colors.orange,
         ),
+        backgroundColor: Colors.orange[50],
         body: Updatedata.isEmpty
             ? Center(
                 child: CircularProgressIndicator(),
@@ -120,12 +137,18 @@ class _UserProfile extends State<UserProfile> {
                         controller: _usernameController,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
-                            hintText: 'Sudhir',
-                            hintStyle: TextStyle(color: Colors.grey.shade400),
-                            labelStyle: TextStyle(color: Colors.orange),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(9.0),
-                            )),
+                          hintText: 'Sudhir',
+                          hintStyle: TextStyle(color: Colors.grey.shade400),
+                          labelStyle: TextStyle(color: Colors.orange),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(9.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.orange.shade400),
+                          ),
+                          fillColor: Colors.orange.shade50,
+                        ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a username';
@@ -148,12 +171,18 @@ class _UserProfile extends State<UserProfile> {
                         controller: _phoneController,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
-                            hintText: '+91 9700168016',
-                            hintStyle: TextStyle(color: Colors.grey.shade400),
-                            labelStyle: TextStyle(color: Colors.orange),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(9.0),
-                            )),
+                          hintText: '+91 9700168016',
+                          hintStyle: TextStyle(color: Colors.grey.shade400),
+                          labelStyle: TextStyle(color: Colors.orange),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(9.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.orange.shade400),
+                          ),
+                          fillColor: Colors.orange.shade50,
+                        ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter phone number';
@@ -165,7 +194,7 @@ class _UserProfile extends State<UserProfile> {
                         height: 18,
                       ),
                       Text(
-                        "  gmail",
+                        "  Gmail",
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w500,
@@ -176,12 +205,18 @@ class _UserProfile extends State<UserProfile> {
                         readOnly: true,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
-                            hintText: 'vasiss.143@gmail.com',
-                            hintStyle: TextStyle(color: Colors.grey.shade400),
-                            labelStyle: TextStyle(color: Colors.orange),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(9.0),
-                            )),
+                          hintText: 'vasiss.143@gmail.com',
+                          hintStyle: TextStyle(color: Colors.grey.shade400),
+                          labelStyle: TextStyle(color: Colors.orange),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(9.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.orange.shade400),
+                          ),
+                          fillColor: Colors.orange.shade50,
+                        ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter email id';
@@ -197,12 +232,18 @@ class _UserProfile extends State<UserProfile> {
                         controller: _addressController,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
-                            labelText: ("Address "),
-                            hintStyle: TextStyle(color: Colors.grey.shade400),
-                            labelStyle: TextStyle(color: Colors.orange),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(9.0),
-                            )),
+                          labelText: ("Address "),
+                          hintStyle: TextStyle(color: Colors.grey.shade400),
+                          labelStyle: TextStyle(color: Colors.orange),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(9.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.orange.shade400),
+                          ),
+                          fillColor: Colors.orange.shade50,
+                        ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Enter your address';

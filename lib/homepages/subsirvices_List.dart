@@ -72,11 +72,13 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
       appBar: AppBar(
         title: Text(
           responseData['title'] ?? "",
-          style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new,
+            color: Colors.white,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -127,7 +129,7 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -140,7 +142,7 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
                       style: const TextStyle(fontSize: 15),
                       textAlign: TextAlign.justify,
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     Expanded(
                       child: isLoading
                           ? Center(child: CircularProgressIndicator())
@@ -204,7 +206,7 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
                   Text(
                     title,
                     style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.bold),
+                        fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
                   Text(

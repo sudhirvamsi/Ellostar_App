@@ -55,7 +55,18 @@ class _registerState extends State<register> {
       appBar: AppBar(
         backgroundColor: Colors.orange,
         elevation: 0,
-        title: const Text('Registration'),
+        title: const Text(
+          'Registration',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+        ),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            )),
         titleTextStyle: const TextStyle(
           fontSize: 22,
           color: Colors.white,
@@ -75,7 +86,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'Your Full Name',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -126,7 +137,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'User Name',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -180,7 +191,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'Mobile Number',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -234,7 +245,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'Alternate Number',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -282,7 +293,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'Email Id',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -341,7 +352,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'Password',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -395,7 +406,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'Confirm Password',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -450,7 +461,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'Country',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -515,7 +526,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'State',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -584,7 +595,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'City',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -652,7 +663,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'Pincode',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -705,7 +716,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'Address',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -762,7 +773,7 @@ class _registerState extends State<register> {
 
                   const Text(
                     'Referred By',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(
@@ -817,7 +828,7 @@ class _registerState extends State<register> {
                             }),
                         const Text(
                           'AGREE TO OUR T&C & PRIVACY POLICY',
-                          style: TextStyle(fontSize: 13, color: Colors.black),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ],
                     )),

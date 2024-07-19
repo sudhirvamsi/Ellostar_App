@@ -64,7 +64,7 @@ class _SilverPackagesState extends State<SilverPackages> {
                           const SizedBox(height: 20),
                           Container(
                             width: 400,
-                            height: 520,
+                            height: 560,
                             padding: const EdgeInsets.only(
                               top: 30,
                               left: 10,
@@ -82,7 +82,7 @@ class _SilverPackagesState extends State<SilverPackages> {
                                   Text(
                                     service["title"],
                                     style: const TextStyle(
-                                        fontSize: 26,
+                                        fontSize: 24,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(height: 15),
@@ -96,7 +96,7 @@ class _SilverPackagesState extends State<SilverPackages> {
                                       Text(
                                         service["price"].toString(),
                                         style: const TextStyle(
-                                            fontSize: 40,
+                                            fontSize: 44,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       const SizedBox(width: 5),

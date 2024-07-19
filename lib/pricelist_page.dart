@@ -8,18 +8,12 @@ class PriceListPages extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'priceList',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontSize: 24),
         ),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.orange,
+        centerTitle: true,
       ),
+      backgroundColor: Colors.orange[50],
       body: Center(
         child: Text('we are implement this page'),
       ),

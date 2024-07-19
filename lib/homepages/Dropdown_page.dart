@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:ellostars/Achievers.dart';
 import 'package:ellostars/Authpages/login_page.dart';
+import 'package:ellostars/Subscription.dart';
 import 'package:ellostars/homepages/addbank_details.dart';
 import 'package:ellostars/contests.dart';
 import 'package:ellostars/materials.dart';
+import 'package:ellostars/setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class Dropdown extends StatefulWidget {
   const Dropdown({super.key});
@@ -16,18 +21,48 @@ class Dropdown extends StatefulWidget {
 class _DropdownState extends State<Dropdown> {
   String? username;
   String? gmail;
+  Map<String, dynamic> Updatedata = {};
   @override
   void initState() {
     super.initState();
-    _fetchData();
+    getProfile();
   }
 
-  Future<void> _fetchData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isLoading = false;
 
+  Future<void> getProfile() async {
     setState(() {
-      username = prefs.getString("Username");
-      gmail = prefs.getString('Gmail');
+      isLoading = true;
+    });
+    String? userID = await getData('userid');
+
+    String url = "https://ellostars.com/api/get-profile/$userID";
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization':
+              'Basic ' + base64Encode(utf8.encode('ellostars:ellostars')),
+        },
+      );
+      if (response.statusCode == 200) {
+        final result = jsonDecode(response.body);
+        setState(() {
+          Updatedata = result['details'] ?? "";
+          username = Updatedata['e_name'] ?? "";
+
+          gmail = Updatedata['e_email'];
+
+          print("userdetails$Updatedata");
+        });
+      } else {
+        print('Not able to get countries');
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -44,14 +79,14 @@ class _DropdownState extends State<Dropdown> {
           children: [
             UserAccountsDrawerHeader(
               accountName: Text(
-                username!,
+                username ?? "",
                 style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Colors.white,
                     fontSize: 18),
               ),
               accountEmail: Text(
-                gmail!,
+                gmail ?? "",
                 style: TextStyle(
                   color: Colors.orange.shade50,
                   fontSize: 14,
@@ -81,7 +116,12 @@ class _DropdownState extends State<Dropdown> {
                 color: Colors.orange.shade800,
               ),
               title: const Text('Subscriptions'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Subscription()));
+              },
             ),
             ListTile(
               leading: Icon(
@@ -152,53 +192,13 @@ class _DropdownState extends State<Dropdown> {
                 color: Colors.orange.shade800,
               ),
               title: const Text('Settings'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.logout,
-                color: Colors.orange.shade800,
-              ),
-              title: const Text('Logout'),
-              onTap: () => signout(context),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return SettingPage();
+                }));
+              },
             ),
           ],
         ));
-  }
-
-  Future<void> signout(BuildContext context) async {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.orange.shade50,
-          title: const Text('Confirm Logout'),
-          content: const Text('Are you sure you want to sign out?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () async {
-                // Clear the login status in shared preferences
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setBool('isLoggedIn', false);
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          login_page(), // Replace with your login page
-                    ),
-                    (route) => false);
-              },
-              child: const Text('Yes'),
-            ),
-          ],
-        );
-      },
-    );
   }
 }

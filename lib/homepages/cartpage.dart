@@ -71,11 +71,15 @@ class _Cartitems extends State<Cartitems> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("cart products",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        title: const Text("Cart products",
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white)),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new,
+            color: Colors.white,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -83,7 +87,7 @@ class _Cartitems extends State<Cartitems> {
         ),
         backgroundColor: Colors.orange,
       ),
-      backgroundColor: Colors.amber[50],
+      backgroundColor: Colors.orange[50],
       body: Column(
         children: [
           Expanded(
@@ -132,7 +136,7 @@ class _Cartitems extends State<Cartitems> {
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 10),
                                     decoration: BoxDecoration(
-                                      color: Colors.blue.shade100,
+                                      color: Colors.white,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: SingleChildScrollView(
@@ -170,10 +174,12 @@ class _Cartitems extends State<Cartitems> {
                                                                 ["price"]
                                                             ?.toString() ??
                                                         '0',
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                         fontSize: 20,
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                            FontWeight.bold,
+                                                        color:
+                                                            Colors.orange[900]),
                                                   ),
                                                   const SizedBox(width: 5),
                                                   const Text(
@@ -204,31 +210,33 @@ class _Cartitems extends State<Cartitems> {
                   height: 210,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 245, 145, 39),
+                    color: Colors.orange[400],
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 10),
                         Text(
-                          'Amount:                                                      $amount',
+                          '   Amount:                                                                                $amount',
                           style: const TextStyle(
                               fontSize: 12, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Tax :                                                             $tax',
+                          '   Tax :                                                                                         $tax',
                           style: const TextStyle(
                               fontSize: 12, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Total Amount:                          $totalAmount',
+                          '  Total Amount:                                         $totalAmount',
                           style: const TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.bold),
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                         const SizedBox(height: 29),
                         ElevatedButton(
@@ -236,16 +244,16 @@ class _Cartitems extends State<Cartitems> {
                             checkout(context);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 246, 233, 190),
+                            backgroundColor: Colors.orange[50],
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            minimumSize: const Size(319, 59),
+                            minimumSize: const Size(384, 59),
                           ),
                           child: Text(
                             "Pay $totalAmount",
-                            style: const TextStyle(color: Colors.black),
+                            style: TextStyle(
+                                color: Colors.orange[900], fontSize: 19),
                           ),
                         ),
                       ],

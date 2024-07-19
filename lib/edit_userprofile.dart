@@ -66,11 +66,21 @@ class _editProfileStateState extends State<editProfileState> {
             "Edit Profile ",
             style: TextStyle(
               fontWeight: FontWeight.w700,
+              fontSize: 24,
               color: Colors.white,
             ),
           ),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              )),
           backgroundColor: Colors.orange,
         ),
+        backgroundColor: Colors.orange[50],
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Form(
@@ -93,12 +103,17 @@ class _editProfileStateState extends State<editProfileState> {
                     controller: _usernameController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
-                        hintText: 'Sudhir',
-                        hintStyle: TextStyle(color: Colors.grey.shade400),
-                        labelStyle: TextStyle(color: Colors.orange),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(9.0),
-                        )),
+                      hintText: 'Sudhir',
+                      hintStyle: TextStyle(color: Colors.grey.shade400),
+                      labelStyle: TextStyle(color: Colors.orange),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(9.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.orange.shade400),
+                      ),
+                      fillColor: Colors.orange.shade50,
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a username';
@@ -120,12 +135,17 @@ class _editProfileStateState extends State<editProfileState> {
                     controller: _phoneController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
-                        hintText: '+91 9700168016',
-                        hintStyle: TextStyle(color: Colors.grey.shade400),
-                        labelStyle: TextStyle(color: Colors.orange),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(9.0),
-                        )),
+                      hintText: '+91 9700168016',
+                      hintStyle: TextStyle(color: Colors.grey.shade400),
+                      labelStyle: TextStyle(color: Colors.orange),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(9.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.orange.shade400),
+                      ),
+                      fillColor: Colors.orange.shade50,
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter phone number';
@@ -137,7 +157,7 @@ class _editProfileStateState extends State<editProfileState> {
                     height: 18,
                   ),
                   Text(
-                    "  gmail",
+                    "  Gmail",
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w500,
@@ -147,12 +167,17 @@ class _editProfileStateState extends State<editProfileState> {
                     controller: _emailController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
-                        hintText: 'vasiss.143@gmail.com',
-                        hintStyle: TextStyle(color: Colors.grey.shade400),
-                        labelStyle: TextStyle(color: Colors.orange),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(9.0),
-                        )),
+                      hintText: 'vasiss.143@gmail.com',
+                      hintStyle: TextStyle(color: Colors.grey.shade400),
+                      labelStyle: TextStyle(color: Colors.orange),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(9.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.orange.shade400),
+                      ),
+                      fillColor: Colors.orange.shade50,
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter email id';
@@ -174,12 +199,17 @@ class _editProfileStateState extends State<editProfileState> {
                     controller: _addressController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
-                        hintText: ("Address "),
-                        hintStyle: TextStyle(color: Colors.grey.shade400),
-                        labelStyle: TextStyle(color: Colors.orange),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(9.0),
-                        )),
+                      hintText: ("Address "),
+                      hintStyle: TextStyle(color: Colors.grey.shade400),
+                      labelStyle: TextStyle(color: Colors.orange),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(9.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.orange.shade400),
+                      ),
+                      fillColor: Colors.orange.shade50,
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Enter your address';
@@ -188,7 +218,7 @@ class _editProfileStateState extends State<editProfileState> {
                     },
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
                   ElevatedButton(
                       onPressed: () {
@@ -201,7 +231,7 @@ class _editProfileStateState extends State<editProfileState> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        minimumSize: Size(320, 59),
+                        minimumSize: Size(390, 59),
                       ),
                       child: isLoading
                           ? Center(

@@ -31,16 +31,16 @@ class _subsurviceDetails extends State<subsurviceDetails> {
               Text(
                 survicessList['title'] ?? "",
                 maxLines: 2,
-                style:
-                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
             ],
           ),
-          backgroundColor: Colors.orange.shade50,
+          backgroundColor: Colors.orange,
           leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-            ),
+            icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -106,7 +106,7 @@ class _subsurviceDetails extends State<subsurviceDetails> {
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 18, 18, 18)),
+                              color: Colors.white),
                         )),
                       )),
                     ),

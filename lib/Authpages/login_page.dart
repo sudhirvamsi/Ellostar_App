@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:ellostars/Authpages/forgotpassword_screen.dart';
 import 'package:ellostars/homepages/Bottombar.dart';
 import 'package:ellostars/Authpages/register.dart';
 import 'package:flutter/material.dart';
@@ -37,223 +36,210 @@ class _login_pageState extends State<login_page> {
       backgroundColor: Colors.orange.shade50,
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const SizedBox(
-              height: 50,
-            ),
-            //logo
-            Image.asset(
-              'assets/logo/ellostars.png',
-              width: 200,
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-
-            //welcome back
-            Text(
-              'Start your freelancing journey here',
-              style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 35),
-
-            Form(
-              key: _UserFormKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    textInputAction: TextInputAction.next,
-                    controller: _usernameController,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: Colors.orange,
-                      ),
-                      hintText: "Enter your user name",
-                      hintStyle: const TextStyle(color: Colors.black26),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.0),
-                        borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 247, 247, 247),
-                          width: 1.5,
-                        ),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 17, vertical: 17),
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.orange.shade400),
-                      ),
-                      fillColor: Colors.orange.shade50,
-                      //filled: true,
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your user Name';
-                      }
-                      return null;
-                    },
-                  ),
-
-                  const SizedBox(
-                    height: 10,
-                  ),
-
-                  //password textfiled
-
-                  TextFormField(
-                    obscureText: passToggle,
-                    controller: _passwordController,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      suffix: InkWell(
-                        onTap: () {
-                          setState(() {
-                            passToggle = !passToggle;
-                          });
-                        },
-                        child: Icon(passToggle
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                      ),
-                      prefixIcon: const Icon(
-                        Icons.lock,
-                        color: Colors.orange,
-                      ),
-                      hintText: "Enter your password",
-                      hintStyle: const TextStyle(color: Colors.black26),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9.0),
-                        borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 246, 245, 245),
-                          width: 1.0,
-                        ),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16),
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.orange.shade400),
-                      ),
-                      fillColor: Colors.orange.shade50,
-                      filled: true,
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
-                  ),
-
-                  const SizedBox(
-                    height: 10,
-                  ),
-
-                  //forget password
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => forgot_password()));
-                          },
-                          child: Text('            Forgot Password?',
-                              style: TextStyle(color: Colors.grey.shade600)))
-                    ],
-                  ),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  //sign in button
-
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_UserFormKey.currentState!.validate()) {
-                        login();
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      minimumSize: Size(300, 59),
-                    ),
-                    child: _isLoading
-                        ? const Center(
-                            child: CircularProgressIndicator(
-                              backgroundColor: Colors.white,
-                            ),
-                          )
-                        : const Center(
-                            child: (Text(
-                              'Sign In',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                            )),
-                          ),
-                  ),
-
-                  const SizedBox(
-                    height: 50,
-                  ),
-
-                  // not a member? register now
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Not a member?',
-                        style: TextStyle(color: Colors.black38, fontSize: 14),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const register();
-                          }));
-                        },
-                        child: const Text(
-                          'Register now',
-                          style: TextStyle(
-                              color: Colors.orange,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+        child: Center(
+          child: SingleChildScrollView(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              const SizedBox(
+                height: 50,
               ),
-            )
-          ]),
+              //logo
+              Image.asset(
+                'assets/logo/ellostars.png',
+                width: 200,
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+
+              //welcome back
+              Text(
+                'Start your freelancing journey here',
+                style: TextStyle(
+                    color: Colors.grey.shade700,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 35),
+
+              Form(
+                key: _UserFormKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      controller: _usernameController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: Colors.orange,
+                        ),
+                        hintText: "Enter your user name",
+                        hintStyle: const TextStyle(color: Colors.black26),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(9.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 247, 247, 247),
+                            width: 1.5,
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 17, vertical: 17),
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange.shade400),
+                        ),
+                        fillColor: Colors.orange.shade50,
+                        //filled: true,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your user Name';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    const SizedBox(
+                      height: 10,
+                    ),
+
+                    //password textfiled
+
+                    TextFormField(
+                      obscureText: passToggle,
+                      controller: _passwordController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        suffix: InkWell(
+                          onTap: () {
+                            setState(() {
+                              passToggle = !passToggle;
+                            });
+                          },
+                          child: Icon(passToggle
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.lock,
+                          color: Colors.orange,
+                        ),
+                        hintText: "Enter your password",
+                        hintStyle: const TextStyle(color: Colors.black26),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(9.0),
+                          borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 246, 245, 245),
+                            width: 1.0,
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 16),
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange.shade400),
+                        ),
+                        fillColor: Colors.orange.shade50,
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    const SizedBox(
+                      height: 10,
+                    ),
+
+                    //forget password
+
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+                    //sign in button
+
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_UserFormKey.currentState!.validate()) {
+                          login();
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        minimumSize: Size(300, 59),
+                      ),
+                      child: _isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                backgroundColor: Colors.white,
+                              ),
+                            )
+                          : const Center(
+                              child: (Text(
+                                'Sign In',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              )),
+                            ),
+                    ),
+
+                    const SizedBox(
+                      height: 50,
+                    ),
+
+                    // not a member? register now
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Not a member?',
+                          style: TextStyle(color: Colors.black38, fontSize: 16),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const register();
+                            }));
+                          },
+                          child: const Text(
+                            'Register now',
+                            style: TextStyle(
+                                color: Colors.orange,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ]),
+          ),
         ),
       ),
     );

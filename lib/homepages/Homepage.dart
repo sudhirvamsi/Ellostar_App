@@ -97,7 +97,7 @@ class _homescreenState extends State<homescreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  Text('₹ $walletbalance.00            ',
+                  Text('           ₹ $walletbalance.00            ',
                       style: const TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
@@ -156,7 +156,7 @@ class _homescreenState extends State<homescreen> {
                 Text(
                   'Our Services',
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.brown[700]),
                 ),
@@ -228,7 +228,7 @@ class _homescreenState extends State<homescreen> {
                   Text(
                     titleTitle,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
