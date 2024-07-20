@@ -219,24 +219,54 @@ class _Cartitems extends State<Cartitems> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 10),
-                        Text(
-                          '   Amount:                                                                                $amount',
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.bold),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Amount:',
+                              style: const TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '$amount',
+                              style: const TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 10),
-                        Text(
-                          '   Tax :                                                                                         $tax',
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.bold),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Tax:',
+                              style: const TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '$tax',
+                              style: const TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 10),
-                        Text(
-                          '  Total Amount:                                         $totalAmount',
-                          style: const TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total Amount:',
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '$totalAmount',
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 29),
                         ElevatedButton(
@@ -420,13 +450,6 @@ class _Cartitems extends State<Cartitems> {
           tax = amountdetails[1]['tax'];
           totalAmount = amountdetails[3]['total_amount'];
           //id = jsondata['details']['id'];
-
-          print("kothi:$amount");
-          print("kothi:$tax");
-          print("kothi:$totalAmount");
-
-          print("totalPrice$amountdetails");
-          print("list of the packages$jsondata");
         });
       } else {
         final jsondata = jsonDecode(response.body);
