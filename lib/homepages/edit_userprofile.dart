@@ -80,7 +80,7 @@ class _editProfileStateState extends State<editProfileState> {
               )),
           backgroundColor: Colors.orange,
         ),
-        backgroundColor: Colors.orange[50],
+        backgroundColor: Color(0xfffff8f8),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Form(
@@ -227,7 +227,7 @@ class _editProfileStateState extends State<editProfileState> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
+                        backgroundColor: Color(0xfff85103),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),

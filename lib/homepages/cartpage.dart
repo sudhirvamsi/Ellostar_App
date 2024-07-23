@@ -87,7 +87,7 @@ class _Cartitems extends State<Cartitems> {
         ),
         backgroundColor: Colors.orange,
       ),
-      backgroundColor: Colors.orange[50],
+      backgroundColor: Color(0xfffff8f8),
       body: Column(
         children: [
           Expanded(

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ellostars/Subscription_details.dart';
+import 'package:ellostars/homepages/Subscription_details.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,8 +61,12 @@ class _SubscriptionState extends State<Subscription> {
                 borderRadius: BorderRadius.circular(30.0),
               ),
               suffixIcon: IconButton(
+                color: Colors.orange,
                 icon: const Icon(Icons.calendar_today),
                 onPressed: () => _selectDateTime(context),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.orange.shade400),
               ),
             ),
             onTap: () => _selectDateTime(context),
@@ -77,7 +81,7 @@ class _SubscriptionState extends State<Subscription> {
             height: 20,
           ),
           Text(
-            'please select date for you want Survices list',
+            'Please select date for you want Services list',
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           ),
           SizedBox(
@@ -184,8 +188,9 @@ class _SubscriptionState extends State<Subscription> {
                                     'Button pressed for serial: ${_data[index]['id']}');
                               },
                               child: Text(
-                                'detals',
-                                style: TextStyle(fontSize: 14),
+                                'Details',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.orange[900]),
                               ),
                             ),
                           ),

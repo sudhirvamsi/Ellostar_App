@@ -4,6 +4,7 @@ import 'package:ellostars/Authpages/login_page.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class register extends StatefulWidget {
   const register({super.key});
@@ -826,10 +827,18 @@ class _registerState extends State<register> {
                                 isChecked = newValue!;
                               });
                             }),
-                        const Text(
-                          'AGREE TO OUR T&C & PRIVACY POLICY',
-                          style: TextStyle(fontSize: 16, color: Colors.black),
-                        ),
+                        TextButton(
+                          onPressed: () {
+                            _launchUrl(
+                                'https://ellostars.com/terms-and-conditions');
+                          },
+                          child: Text(
+                            'AGREE TO OUR T&C & PRIVACY POLICY',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Color.fromARGB(255, 32, 74, 241)),
+                          ),
+                        )
                       ],
                     )),
                   ),
@@ -1080,5 +1089,12 @@ class _registerState extends State<register> {
         duration: Duration(seconds: 3), // Adjust the duration as needed
       ),
     );
+  }
+
+  Future<void> _launchUrl(String link) async {
+    final Uri url = Uri.parse(link);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $link');
+    }
   }
 }

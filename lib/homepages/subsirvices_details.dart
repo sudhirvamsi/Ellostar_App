@@ -5,7 +5,9 @@ import 'package:http/http.dart' as http;
 
 class subsurviceDetails extends StatefulWidget {
   final String serviceId;
-  const subsurviceDetails({super.key, required this.serviceId});
+  final String subserviceId;
+  const subsurviceDetails(
+      {super.key, required this.serviceId, required this.subserviceId});
 
   @override
   State<subsurviceDetails> createState() => _subsurviceDetails();
@@ -46,7 +48,7 @@ class _subsurviceDetails extends State<subsurviceDetails> {
             },
           ),
         ),
-        backgroundColor: Colors.orange.shade50,
+        backgroundColor: Color(0xfffff8f8),
         body: survicessList.isEmpty
             ? const Center(
                 child: CircularProgressIndicator(),
@@ -58,7 +60,7 @@ class _subsurviceDetails extends State<subsurviceDetails> {
                     height: MediaQuery.of(context).size.height / 3,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: const Color(0xfff4ecff),
                         image: DecorationImage(
                             image: NetworkImage(survicessList['image'] ?? ""),
                             fit: BoxFit.fitHeight)),
@@ -90,14 +92,17 @@ class _subsurviceDetails extends State<subsurviceDetails> {
                     onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return const packagesList();
+                        return packagesList(
+                          serviceId: widget.serviceId,
+                          subServiceId: widget.subserviceId,
+                        );
                       }));
                     },
                     child: Container(
                       padding: const EdgeInsets.all(20),
                       margin: const EdgeInsets.symmetric(horizontal: 25),
                       decoration: BoxDecoration(
-                        color: Colors.orange,
+                        color: Color(0xfff85103),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: (const Center(

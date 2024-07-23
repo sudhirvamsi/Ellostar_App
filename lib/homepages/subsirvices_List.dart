@@ -87,7 +87,7 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
         backgroundColor: Colors.blue[200],
       ),
       body: Scaffold(
-        backgroundColor: Colors.orange.shade50,
+        backgroundColor: Color(0xfffff8f8),
         body: Column(
           children: [
             Container(
@@ -102,7 +102,7 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
               ),
               child: Center(
                 child: ImageSlideshow(
-                  indicatorColor: Colors.blue.shade700,
+                  indicatorColor: const Color.fromARGB(255, 19, 19, 19),
                   indicatorBackgroundColor: Colors.white,
                   height: 250,
                   autoPlayInterval: 4000,
@@ -125,6 +125,18 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
                       padding: const EdgeInsets.all(8),
                       child: Image.asset('assets/icons/smm.png'),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Image.asset('assets/icons/www.png'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Image.asset('assets/icons/store.png'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Image.asset('assets/icons/search.png'),
+                    ),
                   ],
                 ),
               ),
@@ -140,14 +152,31 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
                     Text(
                       responseData['description'] ?? "",
                       style: const TextStyle(fontSize: 15),
-                      textAlign: TextAlign.justify,
+                      // textAlign: TextAlign.justify,
                     ),
                     const SizedBox(height: 20),
                     Expanded(
                       child: isLoading
                           ? Center(child: CircularProgressIndicator())
                           : subServices.isEmpty
-                              ? Center(child: Text('No Data available'))
+                              ? Center(
+                                  child: Column(children: [
+                                    Image.asset(
+                                      'assets/noServices.png',
+                                      width: 250,
+                                      height: 250,
+                                    ),
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    Text(
+                                      'No Services are Found',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    )
+                                  ]),
+                                )
                               : ListView.builder(
                                   itemCount: subServices.length,
                                   itemBuilder: (context, index) {
@@ -183,7 +212,7 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
         height: 110,
         width: 300,
         decoration: BoxDecoration(
-          color: Colors.white70,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -223,7 +252,10 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => subsurviceDetails(serviceId: id),
+                    builder: (context) => subsurviceDetails(
+                      subserviceId: id,
+                      serviceId: widget.serviceId,
+                    ),
                   ),
                 );
               },

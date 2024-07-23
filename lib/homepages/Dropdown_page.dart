@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:ellostars/Achievers.dart';
-import 'package:ellostars/Authpages/login_page.dart';
-import 'package:ellostars/Subscription.dart';
+
+import 'package:ellostars/homepages/Subscription.dart';
 import 'package:ellostars/homepages/addbank_details.dart';
 import 'package:ellostars/contests.dart';
+
 import 'package:ellostars/materials.dart';
-import 'package:ellostars/setting_page.dart';
+import 'package:ellostars/homepages/setting_page.dart';
+import 'package:ellostars/pricelist_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -74,7 +76,7 @@ class _DropdownState extends State<Dropdown> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        backgroundColor: Colors.orange.shade50,
+        backgroundColor: Color(0xfffff8f8),
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
@@ -108,7 +110,9 @@ class _DropdownState extends State<Dropdown> {
                 color: Colors.orange.shade800,
               ),
               title: const Text('Dashboard'),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
             ListTile(
               leading: Icon(
@@ -169,9 +173,9 @@ class _DropdownState extends State<Dropdown> {
               ),
               title: const Text('Payouts'),
               onTap: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                //   return payouts();
-                // }));
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return payouts_screen();
+                }));
               },
             ),
             ListTile(

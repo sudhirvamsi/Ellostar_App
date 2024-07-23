@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:ellostars/homepages/Homepage.dart';
 import 'package:ellostars/pricelist_page.dart';
-import 'package:ellostars/setting_page.dart';
+import 'package:ellostars/homepages/setting_page.dart';
 import 'package:flutter/material.dart';
 
 class Tabbar_screen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _home_pageState extends State<Tabbar_screen> {
 
   final List<Widget> _screens = [
     const homescreen(),
-    const PriceListPages(),
+    const payouts_screen(),
     const SettingPage(),
   ];
 
@@ -27,8 +27,8 @@ class _home_pageState extends State<Tabbar_screen> {
     return Scaffold(
       backgroundColor: Colors.orange[50],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.orange.shade50,
-        color: Colors.orange.shade500,
+        backgroundColor: Color(0xfffff8f8),
+        color: Color(0xfff85103),
         animationDuration: const Duration(milliseconds: 300),
         items: const [
           Icon(

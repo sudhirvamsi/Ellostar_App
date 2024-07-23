@@ -1,12 +1,9 @@
 import 'package:ellostars/Authpages/login_page.dart';
 import 'package:ellostars/homepages/forgotpassword_screen.dart';
-import 'package:ellostars/userProfile.dart';
+import 'package:ellostars/homepages/userProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-final Uri _url = Uri.parse(
-    "https://console.firebase.google.com/project/sunraise-crm/functions");
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -21,7 +18,7 @@ class SettingPage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.orange,
       ),
-      backgroundColor: Colors.orange[50],
+      backgroundColor: Color(0xfffff8f8),
       body: Padding(
         padding: EdgeInsets.all(10),
         child: Column(
@@ -46,7 +43,7 @@ class SettingPage extends StatelessWidget {
                   ),
                   Icon(
                     Icons.arrow_forward_ios,
-                    color: Colors.orange,
+                    color: Color(0xfff85103),
                   )
                 ],
               ),
@@ -69,7 +66,10 @@ class SettingPage extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           color: Colors.black),
                     ),
-                    Icon(Icons.arrow_forward_ios, color: Colors.orange)
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color(0xfff85103),
+                    )
                   ],
                 )),
             SizedBox(
@@ -87,7 +87,10 @@ class SettingPage extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                   ),
-                  Icon(Icons.arrow_forward_ios, color: Colors.orange)
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Color(0xfff85103),
+                  )
                 ],
               ),
             ),
@@ -95,7 +98,9 @@ class SettingPage extends StatelessWidget {
               height: 20,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                _launchUrl('https://ellostars.com/terms-and-conditions');
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -106,7 +111,10 @@ class SettingPage extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                   ),
-                  Icon(Icons.arrow_forward_ios, color: Colors.orange)
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Color(0xfff85103),
+                  )
                 ],
               ),
             ),
@@ -114,18 +122,23 @@ class SettingPage extends StatelessWidget {
               height: 20,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                _launchUrl('https://ellostars.com/privacy-policy');
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Button",
+                    "privacy-policy",
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                   ),
-                  Icon(Icons.arrow_forward_ios, color: Colors.orange)
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Color(0xfff85103),
+                  )
                 ],
               ),
             ),
@@ -144,7 +157,10 @@ class SettingPage extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                   ),
-                  Icon(Icons.arrow_forward_ios, color: Colors.orange)
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Color(0xfff85103),
+                  )
                 ],
               ),
             ),
@@ -202,11 +218,12 @@ class SettingPage extends StatelessWidget {
     );
   }
 
-  // Future<void> _launchUrl() async {
-  //   if (!await launchUrl(_url)) {
-  //     throw Exception('Could not launch $_url');
-  //   }
-  // }
+  Future<void> _launchUrl(String link) async {
+    final Uri url = Uri.parse(link);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $link');
+    }
+  }
   //  child: TextButton(
   //         onPressed: _launchUrl,
   //         child: Text('Show Flutter homepage'),

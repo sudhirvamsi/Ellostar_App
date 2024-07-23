@@ -332,7 +332,7 @@ class _login_pageState extends State<login_page> {
     scaffold.showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: const Color.fromARGB(255, 126, 125, 125),
+        backgroundColor: Colors.orange,
         duration: Duration(seconds: 3), // Adjust the duration as needed
       ),
     );

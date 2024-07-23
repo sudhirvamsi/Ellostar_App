@@ -52,7 +52,7 @@ class _homescreenState extends State<homescreen> {
           "Homepage",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
-        backgroundColor: Colors.orange.shade50,
+        backgroundColor: Color.fromARGB(255, 252, 247, 255),
         actions: [
           Row(
             children: [
@@ -67,7 +67,7 @@ class _homescreenState extends State<homescreen> {
         ],
       ),
       drawer: const Dropdown(),
-      backgroundColor: Colors.orange.shade50,
+      backgroundColor: Color(0xfffff8f8),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -76,79 +76,91 @@ class _homescreenState extends State<homescreen> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.width / 2,
               decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 4,
-                        color: Colors.orange.shade100,
-                        offset: const Offset(5, 5))
-                  ]),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: Stack(
                 children: [
-                  const Text(
-                    'Total Amount',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                  Image.asset(
+                    'assets/bgg.png',
+                    fit: BoxFit.cover,
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Text('           ₹ $walletbalance.00            ',
-                      style: const TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 20),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                              color: Colors.white38, shape: BoxShape.circle),
-                          child: Center(
-                            child: Icon(
-                              CupertinoIcons.person,
-                              size: 15,
-                              color: Colors.brown.shade900,
-                            ),
+                  Positioned(
+                    // bottom: 16,
+                    //left: 16,
+                    child: Padding(
+                      padding: const EdgeInsets.all(11.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            '                          Total Amount',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('User Id',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white)),
-                            Text(userid ?? "",
-                                style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white)),
-                          ],
-                        )
-                      ],
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Text(
+                              isLoading
+                                  ? ""
+                                  : '           ₹ $walletbalance.00            ',
+                              style: const TextStyle(
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 19,
+                              ),
+                              Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    color: Colors.orange[50],
+                                    shape: BoxShape.circle),
+                                child: Center(
+                                  child: Icon(
+                                    CupertinoIcons.person,
+                                    size: 15,
+                                    color: Colors.brown.shade900,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text('Star Id',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.white)),
+                                  Text(userid ?? "",
+                                      style: const TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white)),
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
             const SizedBox(
-              height: 40,
+              height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -203,58 +215,59 @@ class _homescreenState extends State<homescreen> {
         height: 110,
         width: 300,
         decoration: BoxDecoration(
-          color: Colors.white70,
+          color: const Color.fromARGB(255, 255, 255, 255),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              child: Image.network(
-                iconImagePath,
-                fit: BoxFit.cover,
-                // width: 100,
-                // height: 100,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 45,
+                backgroundColor: Color.fromARGB(255, 241, 231, 248),
+                backgroundImage: NetworkImage(
+                  iconImagePath,
+                ),
               ),
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    titleTitle,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      titleTitle,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    titleSubTitle,
-                    style: const TextStyle(
-                      fontSize: 12,
+                    const SizedBox(height: 5),
+                    Text(
+                      titleSubTitle,
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DigitalMarketingPage(
-                                serviceId: id,
-                              )));
-                },
-                icon: const Icon(Icons.arrow_forward_ios))
-          ],
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DigitalMarketingPage(
+                                  serviceId: id,
+                                )));
+                  },
+                  icon: const Icon(Icons.arrow_forward_ios))
+            ],
+          ),
         ),
       ),
     );

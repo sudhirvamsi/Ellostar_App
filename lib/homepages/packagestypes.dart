@@ -4,7 +4,13 @@ import 'package:ellostars/homepages/silver_package.dart';
 import 'package:flutter/material.dart';
 
 class packagesList extends StatefulWidget {
-  const packagesList({super.key});
+  final String serviceId;
+  final String subServiceId;
+  const packagesList({
+    super.key,
+    required this.serviceId,
+    required this.subServiceId,
+  });
 
   @override
   State<packagesList> createState() => _packagesList();

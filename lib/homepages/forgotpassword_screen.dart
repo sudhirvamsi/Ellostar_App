@@ -21,11 +21,20 @@ class _recetPassword extends State<recetPassword> {
       appBar: AppBar(
         title: const Text(
           "Change Password",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+          style: TextStyle(
+              fontSize: 24, fontWeight: FontWeight.w500, color: Colors.white),
         ),
-        backgroundColor: Colors.orange.shade50,
+        backgroundColor: Colors.orange,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            )),
       ),
-      backgroundColor: Colors.amber[50],
+      backgroundColor: Color(0xfffff8f8),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Form(
@@ -156,7 +165,7 @@ class _recetPassword extends State<recetPassword> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange,
+                    backgroundColor: Color(0xfff85103),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),

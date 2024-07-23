@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:ellostars/edit_userprofile.dart';
+import 'package:ellostars/homepages/edit_userprofile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,6 +22,7 @@ class _UserProfile extends State<UserProfile> {
   // late TextEditingController _cityController;
   // late TextEditingController _pincodeController;
   late TextEditingController _addressController;
+  late TextEditingController _referralController;
 
   bool passToggle = true;
   bool isLoading = false;
@@ -85,7 +87,7 @@ class _UserProfile extends State<UserProfile> {
           ],
           backgroundColor: Colors.orange,
         ),
-        backgroundColor: Colors.orange[50],
+        backgroundColor: Color(0xfffff8f8),
         body: Updatedata.isEmpty
             ? Center(
                 child: CircularProgressIndicator(),
@@ -227,12 +229,19 @@ class _UserProfile extends State<UserProfile> {
                       SizedBox(
                         height: 18,
                       ),
+                      Text(
+                        "  Address",
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                       TextFormField(
                         readOnly: true,
                         controller: _addressController,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
-                          labelText: ("Address "),
+                          hintText: ("Address "),
                           hintStyle: TextStyle(color: Colors.grey.shade400),
                           labelStyle: TextStyle(color: Colors.orange),
                           border: OutlineInputBorder(
@@ -247,6 +256,45 @@ class _UserProfile extends State<UserProfile> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Enter your address';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: 18,
+                      ),
+                      Text(
+                        "  Referral_id",
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      TextFormField(
+                        readOnly: true,
+                        controller: _referralController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        decoration: InputDecoration(
+                            hintText: ("referral_id"),
+                            hintStyle: TextStyle(color: Colors.grey.shade400),
+                            labelStyle: TextStyle(color: Colors.orange),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(9.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.orange.shade400),
+                            ),
+                            fillColor: Colors.orange.shade50,
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  Clipboard.setData(ClipboardData(
+                                      text: _referralController.text));
+                                },
+                                icon: Icon(Icons.copy))),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Enter your referal id';
                           }
                           return null;
                         },
@@ -291,6 +339,8 @@ class _UserProfile extends State<UserProfile> {
 
           _addressController =
               TextEditingController(text: Updatedata['e_address']);
+          _referralController =
+              TextEditingController(text: Updatedata['e_referral_id']);
 
           print("userdetails$Updatedata");
         });

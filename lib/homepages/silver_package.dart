@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ellostars/homepages/cartpage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -112,24 +113,46 @@ class _SilverPackagesState extends State<SilverPackages> {
                                         ? () {
                                             addtocart(service['id']);
                                           }
-                                        : null,
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blue,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      minimumSize: const Size(380, 59),
-                                    ),
-                                    child: Text(
-                                      !addedToCart
-                                          ? "Add to Cart"
-                                          : "Already in cart",
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
+                                        : () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Cartitems()));
+                                          },
+                                    style: !addedToCart
+                                        ? ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.blue,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            minimumSize: const Size(380, 59),
+                                          )
+                                        : ElevatedButton.styleFrom(
+                                            backgroundColor: Color.fromARGB(
+                                                255, 243, 58, 33),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            minimumSize: const Size(380, 59),
+                                          ),
+                                    child: !addedToCart
+                                        ? Text(
+                                            "Add to Cart",
+                                            style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          )
+                                        : Text(
+                                            " go to cart",
+                                            style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
                                   ),
                                   const SizedBox(height: 15),
                                   Row(
