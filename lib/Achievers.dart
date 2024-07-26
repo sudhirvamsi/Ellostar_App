@@ -33,9 +33,7 @@ class _ArchiversScreenState extends State<ArchiversScreen> {
           style: TextStyle(color: Colors.white),
         ),
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-          ),
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -47,7 +45,7 @@ class _ArchiversScreenState extends State<ArchiversScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(20),
@@ -57,24 +55,41 @@ class _ArchiversScreenState extends State<ArchiversScreen> {
                 ),
                 child: Column(
                   children: [
-                    DropdownButton<String>(
-                      value: dropdownValue,
-                      icon: const Icon(Icons.arrow_downward),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: const TextStyle(color: Colors.deepPurple),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownValue = newValue!;
-                        });
-                      },
-                      items: <String>['Images', 'Videos', 'PDFs']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                    InputDecorator(
+                      decoration: InputDecoration(
+                        labelText: 'Select Option',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          isExpanded: true,
+                          value: dropdownValue,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.deepPurple),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownValue = newValue!;
+                            });
+                          },
+                          items: <String>['Images', 'Videos', 'PDFs']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 20),
                     Divider(color: Colors.orange.shade300, thickness: 1),
@@ -120,7 +135,7 @@ class _ArchiversScreenState extends State<ArchiversScreen> {
       isLoading = true;
     });
 
-    String url = "https://ellostars.com/api/materials";
+    String url = "https://ellostars.com/api/achievers";
     try {
       final response = await http.get(
         Uri.parse(url),
