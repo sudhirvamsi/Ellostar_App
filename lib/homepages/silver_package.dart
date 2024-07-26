@@ -6,7 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SilverPackages extends StatefulWidget {
-  const SilverPackages({super.key});
+  final String subid;
+  final String id;
+  const SilverPackages({super.key, required this.subid, required this.id});
 
   @override
   State<SilverPackages> createState() => _SilverPackagesState();

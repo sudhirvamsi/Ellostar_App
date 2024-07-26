@@ -1,11 +1,8 @@
 import 'dart:convert';
-
 import 'package:ellostars/Achievers.dart';
-
 import 'package:ellostars/homepages/Subscription.dart';
 import 'package:ellostars/homepages/addbank_details.dart';
 import 'package:ellostars/contests.dart';
-
 import 'package:ellostars/materials.dart';
 import 'package:ellostars/homepages/setting_page.dart';
 import 'package:ellostars/pricelist_page.dart';
@@ -150,7 +147,7 @@ class _DropdownState extends State<Dropdown> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Archivers_screen()));
+                        builder: (context) => const ArchiversScreen()));
               },
             ),
             ListTile(

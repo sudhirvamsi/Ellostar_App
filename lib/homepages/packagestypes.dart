@@ -67,7 +67,10 @@ class _packagesList extends State<packagesList> {
             Container(
               height: 450,
               width: 300,
-              child: SilverPackages(),
+              child: SilverPackages(
+                subid: widget.subServiceId,
+                id: widget.serviceId,
+              ),
             ),
             Container(
               color: Colors.lightBlueAccent,
