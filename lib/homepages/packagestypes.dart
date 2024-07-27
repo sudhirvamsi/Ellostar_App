@@ -1,4 +1,4 @@
-import 'package:ellostars/homepages/gold_packages.dart';
+// import 'package:ellostars/homepages/gold_packages.dart';
 import 'package:ellostars/homepages/silver_package.dart';
 
 import 'package:flutter/material.dart';
@@ -42,16 +42,16 @@ class _packagesList extends State<packagesList> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Tab(
-                height: 100,
-                child: Text(
-                  'Gold Packages',
-                  style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
+              // Tab(
+              //   height: 100,
+              //   child: Text(
+              //     'Gold Packages',
+              //     style: TextStyle(
+              //         fontSize: 22,
+              //         color: Colors.white,
+              //         fontWeight: FontWeight.bold),
+              //   ),
+              // ),
             ],
           ),
           leading: IconButton(
@@ -72,10 +72,10 @@ class _packagesList extends State<packagesList> {
                 id: widget.serviceId,
               ),
             ),
-            Container(
-              color: Colors.lightBlueAccent,
-              child: (const GoldPackages()),
-            ),
+            // Container(
+            //   color: Colors.lightBlueAccent,
+            //   child: (const GoldPackages()),
+            // ),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ellostars/homepages/packagestypes.dart';
+import 'package:ellostars/homepages/silver_package.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,7 +35,7 @@ class _subsurviceDetails extends State<subsurviceDetails> {
                 survicessList['title'] ?? "",
                 maxLines: 2,
                 style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
@@ -92,9 +93,9 @@ class _subsurviceDetails extends State<subsurviceDetails> {
                     onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return packagesList(
-                          serviceId: widget.serviceId,
-                          subServiceId: widget.subserviceId,
+                        return SilverPackages(
+                          id: widget.serviceId,
+                          subid: widget.subserviceId,
                         );
                       }));
                     },
@@ -128,7 +129,7 @@ class _subsurviceDetails extends State<subsurviceDetails> {
 
     // Create a map to hold the username and password
     Map<String, String> data = {
-      'sub_service_id': widget.serviceId,
+      'sub_service_id': widget.subserviceId,
     };
 
     // Encode the username and password for basic authentication

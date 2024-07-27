@@ -44,164 +44,174 @@ class _SubscriptionState extends State<Subscription> {
             )),
       ),
       backgroundColor: Color(0xffFFF5F5),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(children: [
-          TextFormField(
-            controller: TextEditingController(
-              text: "$formattedDateTime",
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Column(children: [
+            TextFormField(
+              controller: TextEditingController(
+                text: "$formattedDateTime",
+              ),
+              readOnly: true,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                hintText: 'Event Date',
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                suffixIcon: IconButton(
+                  color: Colors.orange,
+                  icon: const Icon(Icons.calendar_today),
+                  onPressed: () => _selectDateTime(context),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange.shade400),
+                ),
+              ),
+              onTap: () => _selectDateTime(context),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please select Event Date & Time';
+                }
+                return null;
+              },
             ),
-            readOnly: true,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            decoration: InputDecoration(
-              hintText: 'Event Date',
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              suffixIcon: IconButton(
-                color: Colors.orange,
-                icon: const Icon(Icons.calendar_today),
-                onPressed: () => _selectDateTime(context),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.orange.shade400),
-              ),
+            SizedBox(
+              height: 20,
             ),
-            onTap: () => _selectDateTime(context),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please select Event Date & Time';
-              }
-              return null;
-            },
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Please select date for you want Services list',
-            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Table(
-                columnWidths: {
-                  0: FixedColumnWidth(30), // Width for S.no column
-                  1: FixedColumnWidth(120), // Width for Date column
-                  2: FixedColumnWidth(70), // Width for Amount column
-                  3: FixedColumnWidth(70), // Width for Status column
-                  4: FixedColumnWidth(100), // Width for Action column
-                },
-                border: TableBorder.all(),
-                children: [
-                  TableRow(
-                    decoration: BoxDecoration(color: Colors.grey[300]),
+            Text(
+              'Please select date for you want Services list',
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              child: SingleChildScrollView(
+                // scrollDirection: Axis.horizontal,
+                child: Expanded(
+                  child: Table(
+                    columnWidths: {
+                      0: FixedColumnWidth(35), // Width for S.no column
+                      1: FixedColumnWidth(120), // Width for Date column
+                      2: FixedColumnWidth(70), // Width for Amount column
+                      3: FixedColumnWidth(70), // Width for Status column
+                      4: FixedColumnWidth(100), // Width for Action column
+                    },
+                    border: TableBorder.all(),
                     children: [
-                      TableCell(
-                        child: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('S',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                      TableCell(
-                        child: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('Date',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                      TableCell(
-                        child: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('Amount',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12)),
-                        ),
-                      ),
-                      TableCell(
-                        child: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('Status',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                      TableCell(
-                        child: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text('Action',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                    ],
-                  ),
-                  for (var index = 0; index < _data.length; index++)
-                    TableRow(
-                      children: [
-                        TableCell(
-                          child: Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text((index + 1)
-                                .toString()), // Convert index to string
-                          ),
-                        ),
-                        TableCell(
-                          child: Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(_data[index]['date_time'] ??
-                                ''), // Access 'date' from _data
-                          ),
-                        ),
-                        TableCell(
-                          child: Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                                _data[index]['final_amount']?.toString() ??
-                                    ''), // Convert to string
-                          ),
-                        ),
-                        TableCell(
-                          child: Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(_data[index]['status'] ??
-                                ''), // Access 'status' from _data
-                          ),
-                        ),
-                        TableCell(
-                          child: Padding(
-                            padding: EdgeInsets.all(8),
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => PayDetails(
-                                              id: _data[index]['id'],
-                                            )));
-                                print(
-                                    'Button pressed for serial: ${_data[index]['id']}');
-                              },
-                              child: Text(
-                                'Details',
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.orange[900]),
-                              ),
+                      TableRow(
+                        decoration: BoxDecoration(color: Colors.grey[300]),
+                        children: [
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('S',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                             ),
                           ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Date',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Amount',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Status',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                          TableCell(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text('Action',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                        ],
+                      ),
+                      for (var index = 0; index < _data.length; index++)
+                        TableRow(
+                          children: [
+                            TableCell(
+                              child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Text((index + 1)
+                                    .toString()), // Convert index to string
+                              ),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Text(_data[index]['date_time'] ??
+                                    ''), // Access 'date' from _data
+                              ),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Text(
+                                    _data[index]['final_amount']?.toString() ??
+                                        ''), // Convert to string
+                              ),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Text(_data[index]['status'] ??
+                                    ''), // Access 'status' from _data
+                              ),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => PayDetails(
+                                                  id: _data[index]['id'],
+                                                )));
+                                    print(
+                                        'Button pressed for serial: ${_data[index]['id']}');
+                                  },
+                                  child: Text(
+                                    'Details',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.orange[900]),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                ],
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ]),
+          ]),
+        ),
       ),
     );
   }

@@ -15,7 +15,9 @@ class Cartitems extends StatefulWidget {
 
 class _Cartitems extends State<Cartitems> {
   List<dynamic> silverpackages = [];
+  Map<String, dynamic> chekoutdata = {};
   List<dynamic> amountdetails = [];
+  String subscribed_reference_id = '';
   final _formkey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -26,19 +28,15 @@ class _Cartitems extends State<Cartitems> {
   void initState() {
     super.initState();
     cartpacages();
-
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Do something when payment succeeds
-    print("_handlePaymentSuccess");
+    print("_handlePaymentSuccess${{response.paymentId}}");
+    paymentApi(response.paymentId!);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    // Do something when payment fails
     print("_handlePaymentError");
   }
 
@@ -373,18 +371,9 @@ class _Cartitems extends State<Cartitems> {
                     ElevatedButton(
                         onPressed: () async {
                           if (_formkey.currentState!.validate()) {
-                            _razorpay.open(options = {
-                              'key': 'rzp_live_2OhdfP6NyJOuNQ',
-                              'amount': totalAmount! * 100,
-                              'name': 'Ellostar',
-                              'description': _nameController.text,
-                              'prefill': {
-                                'contact': _phoneController.text,
-                                'email': _emailController.text
-                              }
-                            });
+                            await checkoutApi();
                           } else {
-                            print('"some one is happend"');
+                            print("some one is happend");
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -461,6 +450,96 @@ class _Cartitems extends State<Cartitems> {
     setState(() {
       isadded = false;
     });
+  }
+
+  Future<void> checkoutApi() async {
+    String? userID = await getData('userid');
+    String url = 'https://ellostars.com/api/checkout';
+
+    Map<String, String> data = {
+      "agent_id": userID ?? "",
+      "client_name": _nameController.text,
+      "client_phone_no": _phoneController.text,
+      "client_email": _emailController.text
+    };
+    print("checkout data $data");
+
+    String basicAuth =
+        'Basic ${base64Encode(utf8.encode('ellostars:ellostars'))}';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Authorization': basicAuth,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: data,
+      );
+
+      if (response.statusCode == 200) {
+        final jsondata = jsonDecode(response.body);
+        setState(() {
+          chekoutdata = jsondata['details'];
+          subscribed_reference_id =
+              jsondata['details']['subscribed_reference_id'];
+
+          print('subscribed_reference_id :$subscribed_reference_id');
+        });
+        print("checkout Data:$jsondata");
+        _razorpay.open(options = {
+          'key': 'rzp_live_Cv4tNJlReGwrkM',
+          'amount': totalAmount! * 100,
+          'name': 'Ellostar',
+          'description': _nameController.text,
+          'prefill': {
+            'contact': _phoneController.text,
+            'email': _emailController.text
+          }
+        });
+        _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+        _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+        _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+      } else {
+        final jsondata = jsonDecode(response.body);
+        print('error data:$jsondata');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Future<void> paymentApi(String payment) async {
+    String url = 'https://ellostars.com/api/verify-payment';
+
+    Map<String, String> data = {
+      "subscribed_reference_id": subscribed_reference_id,
+      "payment_id": "$payment",
+    };
+
+    String basicAuth =
+        'Basic ${base64Encode(utf8.encode('ellostars:ellostars'))}';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Authorization': basicAuth,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: data,
+      );
+
+      if (response.statusCode == 200) {
+        final jsondata = jsonDecode(response.body);
+        print("remove item:$jsondata");
+      } else {
+        final jsondata = jsonDecode(response.body);
+        print('error data:$jsondata');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
   Future<void> removepacages(String id) async {
