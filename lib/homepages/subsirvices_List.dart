@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ellostars/homepages/subsirvices_details.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -215,53 +216,65 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              child: Image.network(
-                iconImagePath,
-                fit: BoxFit.cover,
+        child: CupertinoButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DigitalMarketingPage(
+                          serviceId: id,
+                        )));
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 50,
+                child: Image.network(
+                  iconImagePath,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    description,
-                    style: const TextStyle(fontSize: 13),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => subsurviceDetails(
-                      subserviceId: id,
-                      serviceId: widget.serviceId,
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
                     ),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.arrow_forward_ios),
-            ),
-          ],
+                    const SizedBox(height: 10),
+                    Text(
+                      description,
+                      style: const TextStyle(fontSize: 13, color: Colors.black),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => subsurviceDetails(
+                        subserviceId: id,
+                        serviceId: widget.serviceId,
+                      ),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.arrow_forward_ios),
+              ),
+            ],
+          ),
         ),
       ),
     );

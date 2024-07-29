@@ -284,6 +284,14 @@ class _registerState extends State<register> {
                       filled: true,
                     ),
                     keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter Mobile Number";
+                      } else if (value == _phonenumberController.text) {
+                        return 'Use another Mobile Number';
+                      }
+                      return null;
+                    },
                   ),
 
                   const SizedBox(

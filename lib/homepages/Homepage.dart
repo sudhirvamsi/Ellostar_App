@@ -220,53 +220,62 @@ class _homescreenState extends State<homescreen> {
         ),
         child: Padding(
           padding: const EdgeInsets.only(left: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 45,
-                backgroundColor: Color.fromARGB(255, 241, 231, 248),
-                backgroundImage: NetworkImage(
-                  iconImagePath,
+          child: CupertinoButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DigitalMarketingPage(
+                            serviceId: id,
+                          )));
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 45,
+                  backgroundColor: Color.fromARGB(255, 241, 231, 248),
+                  backgroundImage: NetworkImage(
+                    iconImagePath,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      titleTitle,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                const SizedBox(width: 20),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        titleTitle,
+                        style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      titleSubTitle,
-                      style: const TextStyle(
-                        fontSize: 12,
+                      const SizedBox(height: 5),
+                      Text(
+                        titleSubTitle,
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.black),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DigitalMarketingPage(
-                                  serviceId: id,
-                                )));
-                  },
-                  icon: const Icon(Icons.arrow_forward_ios))
-            ],
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DigitalMarketingPage(
+                                    serviceId: id,
+                                  )));
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios))
+              ],
+            ),
           ),
         ),
       ),
