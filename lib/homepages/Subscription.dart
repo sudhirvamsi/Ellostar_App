@@ -15,13 +15,13 @@ class Subscription extends StatefulWidget {
 
 class _SubscriptionState extends State<Subscription> {
   List<Map<String, dynamic>> _data = [];
-  DateTime selectedDate = DateTime(2024);
+  DateTime selectedDate = DateTime.now(); // Initialize with current date
   String formattedDateTime = '';
 
   @override
   void initState() {
-    getSubscriptions();
     super.initState();
+    getSubscriptions();
   }
 
   @override
@@ -35,25 +35,25 @@ class _SubscriptionState extends State<Subscription> {
         ),
         centerTitle: true,
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            )),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
+        ),
       ),
       backgroundColor: Color(0xffFFF5F5),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(children: [
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
             TextFormField(
               controller: TextEditingController(
-                text: "$formattedDateTime",
+                text: formattedDateTime,
               ),
               readOnly: true,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
                 hintText: 'Event Date',
                 contentPadding:
@@ -78,139 +78,126 @@ class _SubscriptionState extends State<Subscription> {
                 return null;
               },
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             Text(
               'Please select date for you want Services list',
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Container(
-              child: SingleChildScrollView(
-                // scrollDirection: Axis.horizontal,
-                child: Expanded(
-                  child: Table(
-                    columnWidths: {
-                      0: FixedColumnWidth(35), // Width for S.no column
-                      1: FixedColumnWidth(120), // Width for Date column
-                      2: FixedColumnWidth(70), // Width for Amount column
-                      3: FixedColumnWidth(70), // Width for Status column
-                      4: FixedColumnWidth(100), // Width for Action column
-                    },
-                    border: TableBorder.all(),
+              child: Table(
+                columnWidths: {
+                  0: FixedColumnWidth(35), // Width for S.no column
+                  1: FixedColumnWidth(120), // Width for Date column
+                  2: FixedColumnWidth(70), // Width for Amount column
+                  3: FixedColumnWidth(70), // Width for Status column
+                  4: FixedColumnWidth(100), // Width for Action column
+                },
+                border: TableBorder.all(),
+                children: [
+                  TableRow(
+                    decoration: BoxDecoration(color: Colors.grey[300]),
                     children: [
-                      TableRow(
-                        decoration: BoxDecoration(color: Colors.grey[300]),
-                        children: [
-                          TableCell(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('S',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Date',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Amount',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12)),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Status',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text('Action',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                        ],
-                      ),
-                      for (var index = 0; index < _data.length; index++)
-                        TableRow(
-                          children: [
-                            TableCell(
-                              child: Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Text((index + 1)
-                                    .toString()), // Convert index to string
-                              ),
-                            ),
-                            TableCell(
-                              child: Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Text(_data[index]['date_time'] ??
-                                    ''), // Access 'date' from _data
-                              ),
-                            ),
-                            TableCell(
-                              child: Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Text(
-                                    _data[index]['final_amount']?.toString() ??
-                                        ''), // Convert to string
-                              ),
-                            ),
-                            TableCell(
-                              child: Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Text(_data[index]['status'] ??
-                                    ''), // Access 'status' from _data
-                              ),
-                            ),
-                            TableCell(
-                              child: Padding(
-                                padding: EdgeInsets.all(8),
-                                child: TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => PayDetails(
-                                                  id: _data[index]['id'],
-                                                )));
-                                    print(
-                                        'Button pressed for serial: ${_data[index]['id']}');
-                                  },
-                                  child: Text(
-                                    'Details',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.orange[900]),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('S',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Date',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Amount',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12)),
+                        ),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Status',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text('Action',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                      ),
                     ],
                   ),
-                ),
+                  for (var index = 0; index < _data.length; index++)
+                    TableRow(
+                      children: [
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text((index + 1)
+                                .toString()), // Convert index to string
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text(_data[index]['date_time'] ??
+                                ''), // Access 'date' from _data
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text(
+                                _data[index]['final_amount']?.toString() ??
+                                    ''), // Convert to string
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text(_data[index]['status'] ??
+                                ''), // Access 'status' from _data
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PayDetails(
+                                      id: _data[index]['id'],
+                                    ),
+                                  ),
+                                );
+                                print(
+                                    'Button pressed for serial: ${_data[index]['id']}');
+                              },
+                              child: Text(
+                                'Details',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.orange[900]),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
               ),
             ),
-          ]),
+          ],
         ),
       ),
     );
@@ -226,28 +213,18 @@ class _SubscriptionState extends State<Subscription> {
     );
 
     if (pickedDate != null) {
-      // Select Time
-
-      // Combine Date and Time
-      DateTime selectedDateTime = DateTime(
-        pickedDate.year,
-        pickedDate.month,
-        pickedDate.day,
-      );
-
-      // Check if the selected date and time are not in the past
-
       setState(() {
         selectedDate = pickedDate;
+        formattedDateTime = DateFormat('yyyy-MM').format(selectedDate);
       });
-
-      formattedDateTime = DateFormat('yyyy-MM').format(selectedDateTime);
 
       print('Selected DateTime: $formattedDateTime');
       getSubscriptions();
     } else {
       DateTime now = DateTime.now();
-      formattedDateTime = DateFormat('yyyy-MM-ddTHH:mm').format(now);
+      setState(() {
+        formattedDateTime = DateFormat('yyyy-MM-ddTHH:mm').format(now);
+      });
 
       print('Selected DateTime: $formattedDateTime');
     }

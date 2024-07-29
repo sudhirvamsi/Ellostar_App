@@ -99,7 +99,7 @@ class SettingPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                _launchUrl('https://ellostars.com/terms-and-conditions');
+                _launchUrl('https://ellostars.com/terms');
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +123,7 @@ class SettingPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                _launchUrl('https://ellostars.com/privacy-policy');
+                _launchUrl('https://ellostars.com/privacy');
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
