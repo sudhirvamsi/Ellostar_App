@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,13 +33,14 @@ class _Contests_screen extends State<Contests_screen> {
           'contests',
           style: TextStyle(color: Colors.white),
         ),
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.orange,
       ),
       backgroundColor: Colors.orange.shade50,
       body: SingleChildScrollView(
@@ -82,9 +84,9 @@ class _Contests_screen extends State<Contests_screen> {
                               child: Text(
                                 value,
                                 style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.orange.shade900),
                               ),
                             );
                           }).toList(),

@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
 
 class Cartitems extends StatefulWidget {
   const Cartitems({super.key});
@@ -279,7 +281,7 @@ class _Cartitems extends State<Cartitems> {
                             minimumSize: const Size(384, 59),
                           ),
                           child: Text(
-                            "Pay $totalAmount",
+                            "Pay ₹ $totalAmount",
                             style: TextStyle(
                                 color: Colors.orange[900], fontSize: 19),
                           ),
@@ -292,6 +294,11 @@ class _Cartitems extends State<Cartitems> {
         ],
       ),
     );
+  }
+
+  bool _validateEmail(String value) {
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return emailRegex.hasMatch(value);
   }
 
   Future<void> checkout(BuildContext context) async {
@@ -332,15 +339,17 @@ class _Cartitems extends State<Cartitems> {
                           fontSize: 16,
                           fontWeight: FontWeight.w600)),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your Email';
+                    if (GetUtils.isEmail(value!)) {
+                      return null;
+                    } else {
+                      return 'Please enter your email';
                     }
-                    return null;
                   },
                 ),
                 TextFormField(
                   controller: _phoneController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       labelText: 'Phone Number',
                       labelStyle: TextStyle(
@@ -348,10 +357,11 @@ class _Cartitems extends State<Cartitems> {
                           fontSize: 16,
                           fontWeight: FontWeight.w600)),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (GetUtils.isPhoneNumber(value!)) {
+                      return null;
+                    } else {
                       return 'Please enter your phone number';
                     }
-                    return null;
                   },
                 ),
                 const SizedBox(

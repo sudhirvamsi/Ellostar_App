@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ellostars/Authpages/login_page.dart';
+import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _registerState extends State<register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange.shade50,
+      backgroundColor: Color(0xfffff8f8),
       appBar: AppBar(
         backgroundColor: Colors.orange,
         elevation: 0,
@@ -121,7 +122,7 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     validator: (value) {
@@ -172,7 +173,7 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     validator: (value) {
@@ -226,15 +227,16 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter Mobile Number";
+                      if (GetUtils.isPhoneNumber(value!)) {
+                        return null;
+                      } else {
+                        return 'Please enter your phone number';
                       }
-                      return null;
                     },
                   ),
 
@@ -280,7 +282,7 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     keyboardType: TextInputType.number,
@@ -337,7 +339,7 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     validator: (value) {
@@ -395,12 +397,12 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty || value.length <= 5) {
-                        return 'Please enter min 6 lenght';
+                        return 'Please enter min 6 length';
                       }
                       // Add more password validation if needed
                       return null;
@@ -449,7 +451,7 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     validator: (value) {
@@ -499,7 +501,7 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     onChanged: (Map<String, dynamic>? newValue) {
@@ -565,7 +567,7 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     onChanged: stateList.isNotEmpty
@@ -634,7 +636,7 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     onChanged: cityslist.isNotEmpty
@@ -706,7 +708,7 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     validator: (value) {
@@ -759,7 +761,7 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                     validator: (value) {
@@ -815,7 +817,7 @@ class _registerState extends State<register> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange.shade400),
                       ),
-                      fillColor: Colors.orange.shade50,
+                      fillColor: Color(0xffff8f),
                       filled: true,
                     ),
                   ),
@@ -843,8 +845,7 @@ class _registerState extends State<register> {
                           child: Text(
                             'AGREE TO OUR T&C & PRIVACY POLICY',
                             style: TextStyle(
-                                fontSize: 16,
-                                color: Color.fromARGB(255, 32, 74, 241)),
+                                fontSize: 13, color: Colors.orange[900]),
                           ),
                         )
                       ],

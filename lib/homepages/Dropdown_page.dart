@@ -180,7 +180,7 @@ class _DropdownState extends State<Dropdown> {
                 Icons.account_balance,
                 color: Colors.orange.shade800,
               ),
-              title: const Text('add bank detals'),
+              title: const Text('add bank details'),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return addBanck_Details();

@@ -30,7 +30,7 @@ class _SubscriptionState extends State<Subscription> {
       appBar: AppBar(
         backgroundColor: Colors.orange,
         title: Text(
-          'Payouts',
+          'Subscription',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,

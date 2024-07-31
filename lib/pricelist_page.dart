@@ -24,8 +24,9 @@ class _payouts_screen extends State<payouts_screen> {
         appBar: AppBar(
           title: Text(
             'Payouts',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white),
           ),
+          centerTitle: true,
           backgroundColor: Colors.orange,
         ),
         backgroundColor: Color(0xfffff8f8),

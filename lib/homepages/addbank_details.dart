@@ -35,9 +35,15 @@ class _addBanck_Details extends State<addBanck_Details> {
           title: Text(
             "Add Bank Details",
             style: TextStyle(
-              fontWeight: FontWeight.w700,
               color: Colors.white,
             ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           backgroundColor: Colors.orange,
         ),

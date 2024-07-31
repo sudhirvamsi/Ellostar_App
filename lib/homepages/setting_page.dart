@@ -15,8 +15,8 @@ class SettingPage extends StatelessWidget {
           'Setting',
           style: TextStyle(color: Colors.white, fontSize: 24),
         ),
-        centerTitle: true,
         backgroundColor: Colors.orange,
+        centerTitle: true,
       ),
       backgroundColor: Color(0xfffff8f8),
       body: Padding(

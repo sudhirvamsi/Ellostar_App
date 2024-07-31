@@ -32,13 +32,14 @@ class _ArchiversScreenState extends State<ArchiversScreen> {
           'Achievers',
           style: TextStyle(color: Colors.white),
         ),
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.orange,
       ),
       backgroundColor: Colors.orange.shade50,
       body: SingleChildScrollView(
@@ -82,9 +83,9 @@ class _ArchiversScreenState extends State<ArchiversScreen> {
                               child: Text(
                                 value,
                                 style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.orange.shade900),
                               ),
                             );
                           }).toList(),
@@ -150,21 +151,23 @@ class _ArchiversScreenState extends State<ArchiversScreen> {
           final details = jsonResponse['details'];
 
           for (var item in details) {
-            if (item['type'] == '3') {
+            if (item['type'] == '3' && item['status'] == '1') {
               pdfList.add({
                 'title': item['title'] ?? '',
                 'source': item['source'] ?? '',
               });
-            } else if (item['type'] == '2') {
+            } else if (item['type'] == '2' && item['status'] == '1') {
               videoList.add({
                 'title': item['title'] ?? '',
                 'source': item['source'] ?? '',
               });
-            } else {
+            } else if (item['type'] == '1' && item['status'] == '1') {
               otherList.add({
                 'title': item['title'] ?? '',
                 'source': item['source'] ?? '',
               });
+            } else {
+              null;
             }
           }
         } else {

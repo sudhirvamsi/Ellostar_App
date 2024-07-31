@@ -33,7 +33,7 @@ class _login_pageState extends State<login_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange.shade50,
+      backgroundColor: Color(0xfffff8f8),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Center(
@@ -94,7 +94,7 @@ class _login_pageState extends State<login_page> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.orange.shade400),
                         ),
-                        fillColor: Colors.orange.shade50,
+                        fillColor: Color(0xffff8f),
                         //filled: true,
                       ),
                       validator: (value) {
@@ -135,7 +135,7 @@ class _login_pageState extends State<login_page> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(9.0),
                           borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 246, 245, 245),
+                            color: Color.fromARGB(255, 247, 247, 247),
                             width: 1.0,
                           ),
                         ),
@@ -149,7 +149,7 @@ class _login_pageState extends State<login_page> {
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.orange.shade400),
                         ),
-                        fillColor: Colors.orange.shade50,
+                        fillColor: Color(0xffff8f),
                         filled: true,
                       ),
                       validator: (value) {

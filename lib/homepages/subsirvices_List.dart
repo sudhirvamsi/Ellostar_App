@@ -221,8 +221,9 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => DigitalMarketingPage(
-                          serviceId: id,
+                    builder: (context) => subsurviceDetails(
+                          subserviceId: id,
+                          serviceId: widget.serviceId,
                         )));
           },
           child: Row(

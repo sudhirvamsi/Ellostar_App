@@ -29,16 +29,17 @@ class _Meterial_screen extends State<Meterial_screen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Meterials',
+          'Materials',
           style: TextStyle(color: Colors.white),
         ),
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.orange,
       ),
       backgroundColor: Colors.orange.shade50,
       body: SingleChildScrollView(
@@ -82,9 +83,9 @@ class _Meterial_screen extends State<Meterial_screen> {
                               child: Text(
                                 value,
                                 style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.orange.shade900),
                               ),
                             );
                           }).toList(),
