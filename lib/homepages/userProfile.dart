@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ellostars/Authpages/login_page.dart';
 import 'package:ellostars/homepages/edit_userprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,6 +28,7 @@ class _UserProfile extends State<UserProfile> {
   bool passToggle = true;
   bool isLoading = false;
   bool inactive = false;
+  bool isLoadin = false;
 
   Map<String, dynamic> Updatedata = {};
 
@@ -302,6 +304,37 @@ class _UserProfile extends State<UserProfile> {
                       SizedBox(
                         height: 20,
                       ),
+                      TextFormField(
+                        readOnly: true,
+                        controller:
+                            TextEditingController(text: "Delete account"),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        decoration: InputDecoration(
+                            hintStyle: TextStyle(color: Colors.grey.shade400),
+                            labelStyle: TextStyle(color: Colors.orange),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(9.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.orange.shade400),
+                            ),
+                            fillColor: Colors.orange.shade50,
+                            suffixIcon: IconButton(
+                                onPressed: () async {
+                                  await deleteAccount();
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ))),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Enter your address';
+                          }
+                          return null;
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -352,6 +385,77 @@ class _UserProfile extends State<UserProfile> {
     }
     setState(() {
       isLoading = false;
+    });
+  }
+
+  void showToast(BuildContext context, String message) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.orange,
+        duration: Duration(seconds: 3), // Adjust the duration as needed
+      ),
+    );
+  }
+
+  Future<void> deleteAccount() async {
+    setState(() {
+      isLoadin = true;
+    });
+    String url = 'https://ellostars.com/api/delete-account';
+    String? userID = await getData('userid');
+
+    print("object:$userID");
+
+    Map<String, String> data = {
+      'type': "ellostar",
+      'agent_id': userID ?? "",
+    };
+
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('ellostars:ellostars'));
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Authorization': basicAuth,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: data,
+      );
+
+      if (response.statusCode == 200) {
+        final jsondata = jsonDecode(response.body);
+        String massage = jsondata['msg'];
+        print("deleted $massage");
+        setState(() async {
+          print('delete account $jsondata');
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('isLoggedIn', false);
+          showToast(context, massage);
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    login_page(), // Replace with your login page
+              ),
+              (route) => false);
+        });
+
+        // print("survicesslisr:$survicessList");
+      } else {
+        final jsondata = jsonDecode(response.body);
+        print('error data:$jsondata');
+
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+    setState(() {
+      isLoadin = false;
     });
   }
 }
