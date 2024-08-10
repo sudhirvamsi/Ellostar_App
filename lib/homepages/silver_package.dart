@@ -214,23 +214,23 @@ class _SilverPackagesState extends State<SilverPackages> {
                                       const SizedBox(height: 15),
                                       Text(service["description"]),
                                       const SizedBox(height: 50),
-                                      Container(
-                                        padding: const EdgeInsets.all(10),
-                                        margin: const EdgeInsets.symmetric(
-                                            horizontal: 10.0),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: const Color.fromARGB(
-                                                255, 237, 240, 248)),
-                                        child: Center(
-                                          child: Text(
-                                            "Ellostar's commission is ${service["commission"]["agent_commission"].toString()} = Rs ${service["commission"]["agent_commission_amount"]}/- ",
-                                            style:
-                                                const TextStyle(fontSize: 16),
-                                          ),
-                                        ),
-                                      ),
+                                      // Container(
+                                      //   padding: const EdgeInsets.all(10),
+                                      //   margin: const EdgeInsets.symmetric(
+                                      //       horizontal: 10.0),
+                                      //   decoration: BoxDecoration(
+                                      //       borderRadius:
+                                      //           BorderRadius.circular(10),
+                                      //       color: const Color.fromARGB(
+                                      //           255, 237, 240, 248)),
+                                      //   child: Center(
+                                      //     child: Text(
+                                      //       "Ellostar's commission is ${service["commission"]["agent_commission"].toString()} = Rs ${service["commission"]["agent_commission_amount"]}/- ",
+                                      //       style:
+                                      //           const TextStyle(fontSize: 16),
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       const SizedBox(height: 15),
                                     ],
                                   ),

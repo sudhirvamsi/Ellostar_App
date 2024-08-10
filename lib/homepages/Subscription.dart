@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:ellostars/homepages/Subscription_details.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,13 +14,21 @@ class Subscription extends StatefulWidget {
 
 class _SubscriptionState extends State<Subscription> {
   List<Map<String, dynamic>> _data = [];
-  DateTime selectedDate = DateTime.now(); // Initialize with current date
+  DateTime selectedDate = DateTime.now();
   String formattedDateTime = '';
+  final TextEditingController _dateController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    _dateController.text = DateFormat('yyyy-MM').format(selectedDate);
     getSubscriptions();
+  }
+
+  @override
+  void dispose() {
+    _dateController.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,9 +57,7 @@ class _SubscriptionState extends State<Subscription> {
         child: Column(
           children: [
             TextFormField(
-              controller: TextEditingController(
-                text: formattedDateTime,
-              ),
+              controller: _dateController,
               readOnly: true,
               decoration: InputDecoration(
                 hintText: 'Event Date',
@@ -70,7 +75,6 @@ class _SubscriptionState extends State<Subscription> {
                   borderSide: BorderSide(color: Colors.orange.shade400),
                 ),
               ),
-              onTap: () => _selectDateTime(context),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please select Event Date & Time';
@@ -87,11 +91,11 @@ class _SubscriptionState extends State<Subscription> {
             Container(
               child: Table(
                 columnWidths: {
-                  0: FixedColumnWidth(35), // Width for S.no column
-                  1: FixedColumnWidth(120), // Width for Date column
-                  2: FixedColumnWidth(70), // Width for Amount column
-                  3: FixedColumnWidth(70), // Width for Status column
-                  4: FixedColumnWidth(100), // Width for Action column
+                  0: FixedColumnWidth(35),
+                  1: FixedColumnWidth(120),
+                  2: FixedColumnWidth(70),
+                  3: FixedColumnWidth(70),
+                  4: FixedColumnWidth(80),
                 },
                 border: TableBorder.all(),
                 children: [
@@ -142,30 +146,26 @@ class _SubscriptionState extends State<Subscription> {
                         TableCell(
                           child: Padding(
                             padding: EdgeInsets.all(8),
-                            child: Text((index + 1)
-                                .toString()), // Convert index to string
+                            child: Text((index + 1).toString()),
                           ),
                         ),
                         TableCell(
                           child: Padding(
                             padding: EdgeInsets.all(8),
-                            child: Text(_data[index]['date_time'] ??
-                                ''), // Access 'date' from _data
+                            child: Text(_data[index]['date_time'] ?? ''),
                           ),
                         ),
                         TableCell(
                           child: Padding(
                             padding: EdgeInsets.all(8),
                             child: Text(
-                                _data[index]['final_amount']?.toString() ??
-                                    ''), // Convert to string
+                                _data[index]['final_amount']?.toString() ?? ''),
                           ),
                         ),
                         TableCell(
                           child: Padding(
                             padding: EdgeInsets.all(8),
-                            child: Text(_data[index]['status'] ??
-                                ''), // Access 'status' from _data
+                            child: Text(_data[index]['status'] ?? ''),
                           ),
                         ),
                         TableCell(
@@ -204,7 +204,6 @@ class _SubscriptionState extends State<Subscription> {
   }
 
   Future<void> _selectDateTime(BuildContext context) async {
-    // Select Date
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: selectedDate,
@@ -216,6 +215,7 @@ class _SubscriptionState extends State<Subscription> {
       setState(() {
         selectedDate = pickedDate;
         formattedDateTime = DateFormat('yyyy-MM').format(selectedDate);
+        _dateController.text = formattedDateTime;
       });
 
       print('Selected DateTime: $formattedDateTime');
@@ -223,10 +223,11 @@ class _SubscriptionState extends State<Subscription> {
     } else {
       DateTime now = DateTime.now();
       setState(() {
-        formattedDateTime = DateFormat('yyyy-MM-ddTHH:mm').format(now);
+        formattedDateTime = DateFormat('yyyy-MM').format(now);
+        _dateController.text = formattedDateTime;
       });
 
-      print('Selected DateTime: $formattedDateTime');
+      print('No Date Selected, using current DateTime: $formattedDateTime');
     }
   }
 
@@ -260,12 +261,10 @@ class _SubscriptionState extends State<Subscription> {
         print("Subscription: $jsonData");
         List<dynamic> fetchedList = jsonData['lists'];
 
-        // Convert fetchedList to List<Map<String, dynamic>>
         List<Map<String, dynamic>> dataList = List<Map<String, dynamic>>.from(
           fetchedList.map((item) => Map<String, dynamic>.from(item)),
         );
 
-        // Update state variable _data with fetched data
         setState(() {
           _data = dataList;
         });

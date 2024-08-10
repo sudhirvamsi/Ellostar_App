@@ -76,7 +76,9 @@ class SettingPage extends StatelessWidget {
               height: 20,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                _launchUrl('https://ellostars.com/about');
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -99,7 +101,7 @@ class SettingPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                _launchUrl('https://ellostars.com/terms');
+                _launchUrl('https://ellostars.com/terms-and-conditions');
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +125,7 @@ class SettingPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                _launchUrl('https://ellostars.com/privacy');
+                _launchUrl('https://ellostars.com/privacy-policy');
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
