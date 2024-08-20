@@ -40,7 +40,7 @@ class _registerState extends State<register> {
   @override
   void initState() {
     super.initState();
-    Countysget();
+    StatesApi();
   }
 
   bool isChecked = false;
@@ -478,11 +478,12 @@ class _registerState extends State<register> {
                   const SizedBox(
                     height: 5,
                   ),
-                  DropdownButtonFormField<Map<String, dynamic>>(
-                    value: selectedEvent,
+                  TextFormField(
+                    controller: TextEditingController(text: 'India'),
+                    readOnly: true,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
-                      hintText: "Please select County",
+                      hintText: "enter your confirm password",
                       hintStyle: const TextStyle(color: Colors.black26),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(9.0),
@@ -504,33 +505,69 @@ class _registerState extends State<register> {
                       fillColor: Color(0xffff8f),
                       filled: true,
                     ),
-                    onChanged: (Map<String, dynamic>? newValue) {
-                      setState(() {
-                        selectedEvent = newValue;
-                        selectedState = null;
-                        stateList = [];
-                        print('Selected country: $selectedEvent');
-                      });
-                      StatesApi();
-                    },
-                    items: eventList
-                        .map<DropdownMenuItem<Map<String, dynamic>>>(
-                            (Map<String, dynamic> value) {
-                      return DropdownMenuItem<Map<String, dynamic>>(
-                        value: value,
-                        child: Text(
-                          value['name'],
-                          style: const TextStyle(fontWeight: FontWeight.normal),
-                        ),
-                      );
-                    }).toList(),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Please select County";
+                        return 'Confirm your password';
+                      } else if (value != _passwordController.text) {
+                        return 'Passwords do not match';
                       }
                       return null;
                     },
                   ),
+
+                  // DropdownButtonFormField<Map<String, dynamic>>(
+                  //   value: selectedEvent,
+                  //   autovalidateMode: AutovalidateMode.onUserInteraction,
+                  //   decoration: InputDecoration(
+                  //     hintText: "Please select County",
+                  //     hintStyle: const TextStyle(color: Colors.black26),
+                  //     border: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(9.0),
+                  //       borderSide: const BorderSide(
+                  //         color: Color.fromARGB(255, 246, 245, 245),
+                  //         width: 1.0,
+                  //       ),
+                  //     ),
+                  //     contentPadding: const EdgeInsets.symmetric(
+                  //         horizontal: 16, vertical: 16),
+                  //     enabledBorder: const OutlineInputBorder(
+                  //       borderSide: BorderSide(
+                  //         color: Colors.white,
+                  //       ),
+                  //     ),
+                  //     focusedBorder: OutlineInputBorder(
+                  //       borderSide: BorderSide(color: Colors.orange.shade400),
+                  //     ),
+                  //     fillColor: Color(0xffff8f),
+                  //     filled: true,
+                  //   ),
+                  //   onChanged: (Map<String, dynamic>? newValue) {
+                  //     setState(() {
+                  //       selectedEvent = newValue;
+                  //       selectedState = null;
+                  //       stateList = [];
+                  //       print('Selected country: $selectedEvent');
+                  //     });
+                  //     StatesApi();
+                  //   },
+                  //   items: eventList
+                  //       .map<DropdownMenuItem<Map<String, dynamic>>>(
+                  //           (Map<String, dynamic> value) {
+                  //     return DropdownMenuItem<Map<String, dynamic>>(
+                  //       value: value,
+                  //       child: Text(
+                  //         value['name'],
+                  //         style: const TextStyle(fontWeight: FontWeight.normal),
+                  //       ),
+                  //     );
+                  //   }).toList(),
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return "Please select County";
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
                   const SizedBox(height: 20),
 
                   // STATE
@@ -922,13 +959,8 @@ class _registerState extends State<register> {
   }
 
   Future<void> StatesApi() async {
-    if (selectedEvent == null) {
-      print('No country selected');
-      return;
-    }
-
     String url = 'https://ellostars.com/api/states';
-    String countyid = selectedEvent!['id'].toString();
+    String countyid = '101';
     print('countyid: $countyid');
 
     Map<String, String> data = {
@@ -971,7 +1003,7 @@ class _registerState extends State<register> {
 
   Future<void> cityesApis() async {
     if (selectedState == null) {
-      print('No country selected');
+      print('No State selected');
       return;
     }
 
@@ -1034,7 +1066,7 @@ class _registerState extends State<register> {
       'email': _emailController.text,
       'password': _passwordController.text,
       'confirm_password': _confirmpassController.text,
-      'country': selectedEvent!['id'].toString(),
+      'country': '101',
       'state': selectedState!['id'].toString(),
       'city': selectedCity!['id'].toString(),
       'pincode': _pincodeController.text,
