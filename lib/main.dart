@@ -46,7 +46,7 @@ class _splash_screenState extends State<splash_screen> {
       splash: 'assets/logo/logo.gif',
       splashIconSize: 2000.0,
       centered: true,
-      duration: 6800,
+      duration: 6300,
       nextScreen: const AppNavigator(),
       backgroundColor: Colors.orange.shade50,
     );

@@ -134,7 +134,7 @@ class _DropdownState extends State<Dropdown> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Contests_screen()));
+                        builder: (context) => const ContestsScreen()));
               },
             ),
             ListTile(
@@ -160,7 +160,7 @@ class _DropdownState extends State<Dropdown> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Meterial_screen()));
+                        builder: (context) => const MeterialScreen()));
               },
             ),
             ListTile(

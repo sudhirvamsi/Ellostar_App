@@ -12,6 +12,7 @@ class addBanck_Details extends StatefulWidget {
 
 class _addBanck_Details extends State<addBanck_Details> {
   final GlobalKey<FormState> _UserFormKey = GlobalKey<FormState>();
+  Map<String, dynamic> Updatedata = {};
 
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _BankAccountController = TextEditingController();
@@ -26,6 +27,7 @@ class _addBanck_Details extends State<addBanck_Details> {
   @override
   void initState() {
     super.initState();
+    getProfile();
   }
 
   @override
@@ -172,7 +174,7 @@ class _addBanck_Details extends State<addBanck_Details> {
                   ElevatedButton(
                       onPressed: () {
                         if (_UserFormKey.currentState!.validate()) {
-                          subSurvicessdetails();
+                          editBankDetails();
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -201,7 +203,7 @@ class _addBanck_Details extends State<addBanck_Details> {
     return prefs.getString(key);
   }
 
-  Future<void> subSurvicessdetails() async {
+  Future<void> editBankDetails() async {
     setState(() {
       isLoading = true;
     });
@@ -233,10 +235,8 @@ class _addBanck_Details extends State<addBanck_Details> {
 
       if (response.statusCode == 200) {
         final jsondata = jsonDecode(response.body);
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => Tabbar_screen()),
-            (route) => false);
+
+        getProfile();
         showToast(context, "Updated Successfully");
         print("responce :$jsondata");
       } else {
@@ -247,6 +247,48 @@ class _addBanck_Details extends State<addBanck_Details> {
       }
     } catch (e) {
       print('Error: $e');
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  Future<void> getProfile() async {
+    setState(() {
+      isLoading = true;
+    });
+    String? userID = await getData('userid');
+
+    String url = "https://ellostars.com/api/get-profile/$userID";
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization':
+              'Basic ' + base64Encode(utf8.encode('ellostars:ellostars')),
+        },
+      );
+      if (response.statusCode == 200) {
+        final result = jsonDecode(response.body);
+        setState(() {
+          Updatedata = result['details'];
+          _usernameController =
+              TextEditingController(text: Updatedata['e_bank_name']);
+          _BankAccountController =
+              TextEditingController(text: Updatedata['e_bank_account_number']);
+          _ifsccodeController =
+              TextEditingController(text: Updatedata['e_ifsc_code']);
+
+          _upiidController =
+              TextEditingController(text: Updatedata['e_upi_id']);
+
+          print("userdetails$Updatedata");
+        });
+      } else {
+        print('Not able to get countries');
+      }
+    } catch (e) {
+      print("Error: $e");
     }
     setState(() {
       isLoading = false;

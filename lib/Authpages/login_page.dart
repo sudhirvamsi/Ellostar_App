@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:ellostars/homepages/Bottombar.dart';
 import 'package:ellostars/Authpages/register.dart';
 import 'package:flutter/material.dart';
@@ -306,9 +305,10 @@ class _login_pageState extends State<login_page> {
             ),
             (route) => false);
       } else {
-        // Login failed
+        final jsondata = jsonDecode(response.body);
+        String massage = jsondata['msg'];
         print('Login failed');
-        showToast(context, "Ellostar user not found");
+        showTorst(context, massage);
         print(
             'Response body: ${response.body}'); // Print the response body for debugging
         // Handle your logic for failed login here
@@ -333,6 +333,17 @@ class _login_pageState extends State<login_page> {
       SnackBar(
         content: Text(message),
         backgroundColor: Colors.orange,
+        duration: Duration(seconds: 3), // Adjust the duration as needed
+      ),
+    );
+  }
+
+  void showTorst(BuildContext context, String message) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Color.fromARGB(255, 236, 50, 50),
         duration: Duration(seconds: 3), // Adjust the duration as needed
       ),
     );

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:ellostars/homepages/subsirvices_List.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/utils.dart';
@@ -107,31 +109,21 @@ class _Cartitems extends State<Cartitems> {
 
                             return Column(
                               children: [
-                                SizedBox(height: 10),
-                                Slidable(
-                                  endActionPane: ActionPane(
-                                    motion: StretchMotion(),
-                                    children: [
-                                      SlidableAction(
-                                        onPressed: (context) {
-                                          _deleteItem(index);
-                                          removepacages(service['id']);
-                                          cartpacages();
-                                        },
-                                        backgroundColor: Colors.red,
-                                        foregroundColor: Colors.white,
-                                        label: "Delete",
-                                        icon: Icons.delete,
-                                      ),
-                                    ],
-                                  ),
+                                CupertinoButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DigitalMarketingPage(
+                                                  serviceId: '',
+                                                )));
+                                  },
                                   child: Container(
                                     width: 400,
                                     height: 100,
                                     padding: const EdgeInsets.only(
                                       top: 30,
-                                      left: 10,
-                                      right: 10,
                                     ),
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 10),
@@ -183,10 +175,25 @@ class _Cartitems extends State<Cartitems> {
                                                   ),
                                                   const SizedBox(width: 5),
                                                   const Text(
-                                                    '/-',
+                                                    '/-    ',
                                                     style:
                                                         TextStyle(fontSize: 25),
                                                   ),
+                                                  Row(
+                                                    children: [
+                                                      IconButton(
+                                                          onPressed: () {
+                                                            _deleteItem(index);
+                                                            removepacages(
+                                                                service['id']);
+                                                            cartpacages();
+                                                          },
+                                                          icon: Icon(
+                                                            Icons.delete,
+                                                            color: Colors.red,
+                                                          ))
+                                                    ],
+                                                  )
                                                 ],
                                               )
                                             ],

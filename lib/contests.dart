@@ -1,36 +1,44 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 
-class Contests_screen extends StatefulWidget {
-  const Contests_screen({Key? key}) : super(key: key);
+class ContestsScreen extends StatefulWidget {
+  const ContestsScreen({Key? key}) : super(key: key);
 
   @override
-  State<Contests_screen> createState() => _Contests_screen();
+  State<ContestsScreen> createState() => _ContestsScreen();
 }
 
-class _Contests_screen extends State<Contests_screen> {
+class _ContestsScreen extends State<ContestsScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  bool isLoading = false;
+  List<Map<String, String>> pdfList = [];
+  List<Map<String, String>> videoList = [];
+  List<Map<String, String>> imageList = [];
+
   @override
   void initState() {
+    _tabController = TabController(length: 3, vsync: this);
     getAchievers();
     super.initState();
   }
 
-  bool isLoading = false;
-  List<Map<String, String>> pdfList = [];
-  List<Map<String, String>> videoList = [];
-  List<Map<String, String>> otherList = [];
-
-  String dropdownValue = 'Images'; // Default dropdown value
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'contests',
+        title: const Text(
+          'Contests',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -41,83 +49,82 @@ class _Contests_screen extends State<Contests_screen> {
           },
         ),
         backgroundColor: Colors.orange,
-      ),
-      backgroundColor: Colors.orange.shade50,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Color(0xffFFF5F5),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  children: [
-                    InputDecorator(
-                      decoration: InputDecoration(
-                        labelText: 'Select Option',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          isExpanded: true,
-                          value: dropdownValue,
-                          icon: const Icon(Icons.arrow_drop_down),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: const TextStyle(color: Colors.deepPurple),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownValue = newValue!;
-                            });
-                          },
-                          items: <String>['Images', 'Videos', 'PDFs']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.orange.shade900),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Divider(color: Colors.orange.shade300, thickness: 1),
-                    SizedBox(height: 20),
-                    _buildListForType(dropdownValue),
-                  ],
-                ),
-              ),
-            ),
+        bottom: TabBar(
+          dividerColor: Colors.black,
+          controller: _tabController,
+          indicatorColor: Colors.white,
+          tabs: const [
+            Tab(text: "Images"),
+            Tab(text: "Videos"),
+            Tab(text: "PDFs"),
           ],
         ),
       ),
+      backgroundColor: Colors.orange.shade50,
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : TabBarView(
+              controller: _tabController,
+              children: [
+                _buildSection(imageList, 'image'),
+                _buildSection(videoList, 'video'),
+                _buildSection(pdfList, 'pdf'),
+              ],
+            ),
     );
   }
 
-  Widget _buildListForType(String dropdownValue) {
-    switch (dropdownValue) {
-      case 'Images':
-        return _buildItemList(Icons.image, otherList);
-      case 'Videos':
-        return _buildItemList(Icons.video_camera_back_outlined, videoList);
-      case 'PDFs':
-        return _buildItemList(Icons.picture_as_pdf, pdfList);
-      default:
-        return Container();
+  Widget _buildSection(List<Map<String, String>> itemList, String type) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: itemList.isEmpty
+          ? const Center(child: Text('No items available'))
+          : SingleChildScrollView(
+              child: Column(
+                children: itemList.map((item) {
+                  switch (type) {
+                    case 'image':
+                      return _buildImageItem(item['source'] ?? '');
+                    case 'video':
+                      return _buildYouTubeVideoItem(item['source'] ?? '');
+                    case 'pdf':
+                      return _buildItemList(Icons.picture_as_pdf, pdfList);
+                    default:
+                      return Container();
+                  }
+                }).toList(),
+              ),
+            ),
+    );
+  }
+
+  Widget _buildImageItem(String url) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Image.network(url, errorBuilder: (context, error, stackTrace) {
+        return const Text('Failed to load image');
+      }),
+    );
+  }
+
+  Widget _buildYouTubeVideoItem(String url) {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+    if (videoId == null) {
+      return const Text('Invalid YouTube URL');
     }
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: YoutubePlayer(
+        controller: YoutubePlayerController(
+          initialVideoId: videoId,
+          flags: const YoutubePlayerFlags(
+            autoPlay: false,
+            mute: false,
+          ),
+        ),
+        showVideoProgressIndicator: true,
+      ),
+    );
   }
 
   Widget _buildItemList(IconData icon, List<Map<String, String>> itemList) {
@@ -130,6 +137,16 @@ class _Contests_screen extends State<Contests_screen> {
         );
       }).toList(),
     );
+  }
+
+  Future<void> _launchUrl(String url) async {
+    if (url.isNotEmpty) {
+      if (!await canLaunch(url)) {
+        throw 'Could not launch $url';
+      } else {
+        await launch(url);
+      }
+    }
   }
 
   Future<void> getAchievers() async {
@@ -163,7 +180,7 @@ class _Contests_screen extends State<Contests_screen> {
                 'source': item['source'] ?? '',
               });
             } else {
-              otherList.add({
+              imageList.add({
                 'title': item['title'] ?? '',
                 'source': item['source'] ?? '',
               });
@@ -183,14 +200,20 @@ class _Contests_screen extends State<Contests_screen> {
       isLoading = false;
     });
   }
+}
 
-  Future<void> _launchUrl(String url) async {
-    if (url.isNotEmpty) {
-      if (!await canLaunch(url)) {
-        throw 'Could not launch $url';
-      } else {
-        await launch(url);
-      }
-    }
+class PdfViewerWidget extends StatelessWidget {
+  final String pdfUrl;
+
+  const PdfViewerWidget({Key? key, required this.pdfUrl}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 400, // Specify a finite height
+      child: PDFView(
+        filePath: pdfUrl,
+      ),
+    );
   }
 }

@@ -1074,8 +1074,19 @@ class _registerState extends State<register> {
       } else {
         // Login failed
         final jsondata = jsonDecode(response.body);
-        String massage = jsondata['msg'];
-        showToast(context, massage);
+        var errors = jsondata['errors'];
+        if (errors != null && errors is Map<String, dynamic>) {
+          // Extract error messages from the map
+          String message = '';
+          errors.forEach((key, value) {
+            message += '$value\n'; // Concatenate all error messages
+          });
+
+          showTorst(
+              context, message.trim()); // Trim to remove any trailing newline
+        } else {
+          showToast(context, 'An unknown error occurred');
+        }
         print(
             'Response body: ${response.body}'); // Print the response body for debugging
         // Handle your logic for failed login here
@@ -1095,6 +1106,17 @@ class _registerState extends State<register> {
       SnackBar(
         content: Text(message),
         backgroundColor: const Color.fromARGB(255, 126, 125, 125),
+        duration: Duration(seconds: 3), // Adjust the duration as needed
+      ),
+    );
+  }
+
+  void showTorst(BuildContext context, String message) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Color.fromARGB(255, 236, 50, 50),
         duration: Duration(seconds: 3), // Adjust the duration as needed
       ),
     );

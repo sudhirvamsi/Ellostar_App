@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:ellostars/homepages/packagestypes.dart';
+
 import 'package:ellostars/homepages/silver_package.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +23,7 @@ class _subsurviceDetails extends State<subsurviceDetails> {
 
   Map<String, dynamic> survicessList = {};
   bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,75 +50,89 @@ class _subsurviceDetails extends State<subsurviceDetails> {
             },
           ),
         ),
-        backgroundColor: Color(0xfffff8f8),
+        backgroundColor: const Color(0xfffff8f8),
         body: survicessList.isEmpty
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height / 3,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: const Color(0xfff4ecff),
-                        image: DecorationImage(
-                            image: NetworkImage(survicessList['image'] ?? ""),
-                            fit: BoxFit.fitHeight)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'About:',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w800),
+                padding: const EdgeInsets.all(19.0),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Container(
+                              height: MediaQuery.of(context).size.height / 3,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: const Color(0xfff4ecff),
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      survicessList['image'] ?? ""),
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'About:',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w800),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  survicessList['description'] ?? "",
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        survicessList['description'] ?? "",
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return SilverPackages(
-                          id: widget.serviceId,
-                          subid: widget.subserviceId,
-                        );
-                      }));
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      margin: const EdgeInsets.symmetric(horizontal: 25),
-                      decoration: BoxDecoration(
-                        color: Color(0xfff85103),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: (const Center(
-                        child: (Text(
-                          'Our Packages',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        )),
-                      )),
                     ),
-                  )
-                ]),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return SilverPackages(
+                            id: widget.serviceId,
+                            subid: widget.subserviceId,
+                          );
+                        }));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        margin: const EdgeInsets.symmetric(horizontal: 25),
+                        decoration: BoxDecoration(
+                          color: const Color(0xfff85103),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Our Packages',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ));
   }
 

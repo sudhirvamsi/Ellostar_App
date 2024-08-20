@@ -17,6 +17,7 @@ class _payouts_screen extends State<payouts_screen> {
   List<dynamic> payouts = [];
   DateTime selectedDate = DateTime(2024);
   String formattedDateTime = '';
+  TextEditingController datepicker = TextEditingController();
   @override
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class _payouts_screen extends State<payouts_screen> {
               ),
               TextFormField(
                 controller: TextEditingController(
-                  text: "$formattedDateTime",
+                  text: formattedDateTime,
                 ),
                 readOnly: true,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -185,14 +186,16 @@ class _payouts_screen extends State<payouts_screen> {
       });
 
       formattedDateTime = DateFormat('yyyy').format(selectedDateTime);
+      datepicker.text = formattedDateTime;
 
       print('Selected DateTime: $formattedDateTime');
       payoutsApi();
     } else {
       DateTime now = DateTime.now();
       formattedDateTime = DateFormat('yyyy-MM-ddTHH:mm').format(now);
+      datepicker.text = formattedDateTime;
 
-      print('Selected DateTime: $formattedDateTime');
+      print('non DateTime: $formattedDateTime');
     }
   }
 
@@ -207,7 +210,7 @@ class _payouts_screen extends State<payouts_screen> {
     Map<String, dynamic> data = {
       "agent_id": userID,
       "type": "year",
-      "date": formattedDateTime,
+      "date": datepicker.text,
     };
 
     String basicAuth =

@@ -21,7 +21,9 @@ class _SubscriptionState extends State<Subscription> {
   @override
   void initState() {
     super.initState();
+    getSubscriptions();
     _dateController.text = DateFormat('yyyy-MM').format(selectedDate);
+
     getSubscriptions();
   }
 
@@ -69,7 +71,7 @@ class _SubscriptionState extends State<Subscription> {
                 suffixIcon: IconButton(
                   color: Colors.orange,
                   icon: const Icon(Icons.calendar_today),
-                  onPressed: () => _selectDateTime(context),
+                  onPressed: () => _selectDateTime(),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange.shade400),
@@ -203,7 +205,7 @@ class _SubscriptionState extends State<Subscription> {
     );
   }
 
-  Future<void> _selectDateTime(BuildContext context) async {
+  Future<void> _selectDateTime() async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: selectedDate,
@@ -225,7 +227,9 @@ class _SubscriptionState extends State<Subscription> {
       setState(() {
         formattedDateTime = DateFormat('yyyy-MM').format(now);
         _dateController.text = formattedDateTime;
+        print('formattedDateTime${_dateController.text}');
       });
+      getSubscriptions();
 
       print('No Date Selected, using current DateTime: $formattedDateTime');
     }
@@ -241,7 +245,7 @@ class _SubscriptionState extends State<Subscription> {
     String url = 'https://ellostars.com/api/subscriptions-list';
     Map<String, String> data = {
       'agent_id': userID ?? "",
-      "month": formattedDateTime
+      "month": _dateController.text,
     };
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('ellostars:ellostars'));

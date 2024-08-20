@@ -263,14 +263,12 @@ class _DigitalMarketingPageState extends State<DigitalMarketingPage> {
               IconButton(
                 onPressed: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => subsurviceDetails(
-                        subserviceId: id,
-                        serviceId: widget.serviceId,
-                      ),
-                    ),
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => subsurviceDetails(
+                                subserviceId: id,
+                                serviceId: widget.serviceId,
+                              )));
                 },
                 icon: const Icon(Icons.arrow_forward_ios),
               ),
